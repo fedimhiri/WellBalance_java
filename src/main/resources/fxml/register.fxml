@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.RegisterController"
+            prefWidth="1500.0" prefHeight="900.0"
+            styleClass="login-root">
+
+    <top>
+        <VBox>
+            <HBox alignment="CENTER_LEFT"
+                  spacing="30"
+                  prefHeight="42"
+                  minHeight="42"
+                  maxHeight="42"
+                  styleClass="top-contact-bar">
+                <padding>
+                    <Insets top="0" right="70" bottom="0" left="70"/>
+                </padding>
+                <Label text="✉ contact@clinique.com" styleClass="top-contact-label"/>
+                <Label text="📱 +1 5589 55488 55"    styleClass="top-contact-label"/>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT"
+                  prefHeight="82" minHeight="82"
+                  styleClass="navbar">
+                <padding>
+                    <Insets top="0" right="70" bottom="0" left="70"/>
+                </padding>
+                <Label text="Clinique Médicale" styleClass="brand-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <HBox alignment="CENTER_RIGHT" spacing="18">
+                    <Button text="Accueil"      styleClass="nav-link"/>
+                    <Button text="Se connecter" styleClass="nav-outline-button" onAction="#goToLogin"/>
+                    <Button text="S'inscrire"   styleClass="nav-primary-button"/>
+                </HBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+            <content>
+                <StackPane styleClass="register-wrapper">
+                    <VBox spacing="6" maxWidth="700" prefWidth="700" styleClass="register-card">
+                        <padding>
+                            <Insets top="35" right="40" bottom="35" left="40"/>
+                        </padding>
+
+                        <Label text="Créer un compte"  styleClass="login-title"/>
+                        <Label text="Inscrivez-vous pour accéder à votre espace patient."
+                               styleClass="login-subtitle"/>
+
+                        <VBox spacing="4" style="-fx-padding: 16 0 0 0;">
+
+                            <!-- Email -->
+                            <TextField fx:id="emailField"
+                                       promptText="Email"
+                                       styleClass="input-field"
+                                       prefHeight="46"/>
+                            <Label fx:id="emailError"
+                                   styleClass="error-label"
+                                   visible="false" managed="false"/>
+
+                            <!-- Username -->
+                            <TextField fx:id="usernameField"
+                                       promptText="Nom d'utilisateur"
+                                       styleClass="input-field"
+                                       prefHeight="46"
+                                       style="-fx-margin-top: 10;"/>
+                            <Label fx:id="usernameError"
+                                   styleClass="error-label"
+                                   visible="false" managed="false"/>
+
+                            <!-- Téléphone -->
+                            <TextField fx:id="telephoneField"
+                                       promptText="Téléphone (8 chiffres)"
+                                       styleClass="input-field"
+                                       prefHeight="46"/>
+                            <Label fx:id="telephoneError"
+                                   styleClass="error-label"
+                                   visible="false" managed="false"/>
+
+                            <!-- Mot de passe -->
+                            <PasswordField fx:id="passwordField"
+                                           promptText="Mot de passe"
+                                           styleClass="input-field"
+                                           prefHeight="46"/>
+                            <Label fx:id="passwordError"
+                                   styleClass="error-label"
+                                   visible="false" managed="false"/>
+
+                            <!-- Confirmation -->
+                            <PasswordField fx:id="confirmPasswordField"
+                                           promptText="Confirmer le mot de passe"
+                                           styleClass="input-field"
+                                           prefHeight="46"/>
+                            <Label fx:id="confirmPasswordError"
+                                   styleClass="error-label"
+                                   visible="false" managed="false"/>
+
+                            <!-- Conditions -->
+                            <CheckBox fx:id="agreeTermsCheckBox"
+                                      text="J'accepte les conditions d'utilisation"
+                                      styleClass="remember-check"
+                                      style="-fx-padding: 8 0 0 0;"/>
+                            <Label fx:id="termsError"
+                                   styleClass="error-label"
+                                   visible="false" managed="false"/>
+
+                        </VBox>
+
+                        <!-- Bouton inscription -->
+                        <Button text="Créer mon compte"
+                                onAction="#handleRegister"
+                                styleClass="primary-button"
+                                maxWidth="Infinity"
+                                prefHeight="46"
+                                style="-fx-margin-top: 10;"/>
+
+                        <!-- Lien login -->
+                        <HBox alignment="CENTER" spacing="6" style="-fx-padding: 10 0 0 0;">
+                            <Label text="Déjà un compte ?" styleClass="bottom-text"/>
+                            <Button text="Se connecter"
+                                    styleClass="bottom-link"
+                                    onAction="#goToLogin"/>
+                        </HBox>
+
+                    </VBox>
+                </StackPane>
+            </content>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.EditProfileUserController"
+            prefWidth="1000" prefHeight="700"
+            styleClass="edit-user-root">
+
+    <!-- ===== NAVBAR USER ===== -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" styleClass="navbar" prefHeight="80">
+            <padding>
+                <Insets top="0" right="40" bottom="0" left="40"/>
+            </padding>
+            <Label text="Mon Profil" styleClass="brand-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Retour"         styleClass="nav-primary-button" onAction="#goToFrontOffice"/>
+            <Button text="Se déconnecter" styleClass="nav-outline-button" onAction="#logout"/>
+        </HBox>
+    </top>
+
+    <!-- ===== CONTENU CENTRÉ ===== -->
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="scroll-pane">
+            <content>
+                <!-- Double centrage : HBox centre horizontalement, VBox centre verticalement -->
+                <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+
+                        <VBox spacing="15" prefWidth="620" maxWidth="620"
+                              alignment="TOP_CENTER">
+                            <padding>
+                                <Insets top="40" right="0" bottom="40" left="0"/>
+                            </padding>
+
+                            <!-- Titre -->
+                            <HBox alignment="CENTER" spacing="10">
+                                <Label text="👤" styleClass="profile-icon"/>
+                                <Label text="Mon Profil" styleClass="edit-title"/>
+                            </HBox>
+
+                            <!-- Card infos -->
+                            <VBox styleClass="content-card" spacing="8">
+                                <padding>
+                                    <Insets top="25" right="25" bottom="25" left="25"/>
+                                </padding>
+
+                                <!-- Email -->
+                                <Label text="Adresse email" styleClass="field-label"/>
+                                <TextField fx:id="emailField" styleClass="profile-field"
+                                           promptText="Adresse email"/>
+                                <Label fx:id="emailError" styleClass="error-label"
+                                       visible="false" managed="false"/>
+
+                                <!-- Username -->
+                                <Label text="Nom d'utilisateur" styleClass="field-label"
+                                       style="-fx-padding: 8 0 0 0;"/>
+                                <TextField fx:id="usernameField" styleClass="profile-field"
+                                           promptText="Nom d'utilisateur"/>
+                                <Label fx:id="usernameError" styleClass="error-label"
+                                       visible="false" managed="false"/>
+
+                                <!-- Téléphone -->
+                                <Label text="Téléphone" styleClass="field-label"
+                                       style="-fx-padding: 8 0 0 0;"/>
+                                <TextField fx:id="telephoneField" styleClass="profile-field"
+                                           promptText="Téléphone"/>
+                                <Label fx:id="telephoneError" styleClass="error-label"
+                                       visible="false" managed="false"/>
+                            </VBox>
+
+                            <Separator/>
+
+                            <!-- Card mot de passe -->
+                            <VBox styleClass="content-card" spacing="8">
+                                <padding>
+                                    <Insets top="25" right="25" bottom="25" left="25"/>
+                                </padding>
+
+                                <HBox alignment="CENTER_LEFT" spacing="8">
+                                    <Label text="🔒" styleClass="profile-icon"/>
+                                    <Label text="Modifier le mot de passe" styleClass="section-title-blue"/>
+                                </HBox>
+
+                                <!-- Nouveau mot de passe -->
+                                <Label text="Nouveau mot de passe" styleClass="field-label"
+                                       style="-fx-padding: 8 0 0 0;"/>
+                                <PasswordField fx:id="passwordField" styleClass="profile-field"
+                                               promptText="Nouveau mot de passe"/>
+                                <Label fx:id="passwordError" styleClass="error-label"
+                                       visible="false" managed="false"/>
+
+                                <!-- Confirmation -->
+                                <Label text="Confirmer le mot de passe" styleClass="field-label"
+                                       style="-fx-padding: 8 0 0 0;"/>
+                                <PasswordField fx:id="confirmPasswordField" styleClass="profile-field"
+                                               promptText="Confirmer le mot de passe"/>
+                                <Label fx:id="confirmPasswordError" styleClass="error-label"
+                                       visible="false" managed="false"/>
+                            </VBox>
+
+                            <!-- Message succès/erreur global -->
+                            <Label fx:id="messageLabel" styleClass="message-label" wrapText="true"/>
+
+                            <!-- Boutons -->
+                            <HBox spacing="15" alignment="CENTER_RIGHT">
+                                <Button text="Annuler"
+                                        styleClass="reset-button"
+                                        onAction="#goToFrontOffice"/>
+                                <Button text="Enregistrer les modifications"
+                                        styleClass="btn-save"
+                                        onAction="#handleSave"/>
+                            </HBox>
+
+                        </VBox>
+                    </VBox>
+                </HBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

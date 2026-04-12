@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.FrontController"
+            prefWidth="1400.0" prefHeight="850.0"
+            styleClass="front-root">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" styleClass="navbar" prefHeight="80">
+            <padding>
+                <Insets top="0" right="40" bottom="0" left="40"/>
+            </padding>
+
+            <children>
+                <Label text="WellBalance Front Office" styleClass="brand-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Button text="Mon profil"
+                        styleClass="nav-primary-button"
+                        onAction="#goToEditProfile"/>
+
+                <Button text="Se déconnecter"
+                        styleClass="logout-button"
+                        onAction="#logout"/>
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="20">
+            <children>
+                <Label fx:id="welcomeLabel"
+                       text="Bienvenue dans le Front Office"
+                       styleClass="front-title"/>
+
+                <Label text="Depuis ici, l'utilisateur peut accéder à son profil et le modifier."/>
+            </children>
+        </VBox>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.VerifyCodeController"
+            prefWidth="1500" prefHeight="900"
+            styleClass="login-root">
+
+    <center>
+        <HBox alignment="CENTER" prefHeight="900">
+
+            <VBox prefWidth="750" spacing="28" alignment="CENTER_LEFT"
+                  styleClass="login-left-panel">
+                <padding>
+                    <Insets top="60" right="80" bottom="60" left="80"/>
+                </padding>
+
+                <Label text="Vérification" styleClass="login-title"/>
+                <Label text="Entrez le code à 6 chiffres envoyé à votre email."
+                       styleClass="login-subtitle" wrapText="true"/>
+
+                <TextField fx:id="codeField"
+                           promptText="Code de vérification"
+                           prefHeight="52"
+                           styleClass="input-field"/>
+
+                <Label fx:id="messageLabel" wrapText="true"
+                       styleClass="message-label"/>
+
+                <Button text="Vérifier le code"
+                        prefWidth="320" prefHeight="52"
+                        styleClass="primary-button"
+                        onAction="#handleVerify"/>
+
+                <Button text="← Retour"
+                        styleClass="bottom-link"
+                        onAction="#goBack"/>
+            </VBox>
+
+            <VBox prefWidth="750" spacing="20" alignment="CENTER"
+                  styleClass="login-right-panel">
+                <padding>
+                    <Insets top="60" right="60" bottom="60" left="60"/>
+                </padding>
+                <Label text="Clinique Médicale" styleClass="right-title"/>
+                <Label text="Vérifiez votre boîte mail et saisissez le code reçu."
+                       styleClass="right-text" wrapText="true"/>
+            </VBox>
+
+        </HBox>
+    </center>
+
+</BorderPane>

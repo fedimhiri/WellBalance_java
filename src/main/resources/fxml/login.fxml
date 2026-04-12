@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.LoginController"
+            prefWidth="1500.0" prefHeight="900.0"
+            styleClass="login-root">
+
+    <top>
+        <VBox>
+            <HBox alignment="CENTER_LEFT"
+                  spacing="30"
+                  prefHeight="42"
+                  minHeight="42"
+                  maxHeight="42"
+                  styleClass="top-contact-bar">
+                <padding>
+                    <Insets top="0" right="70" bottom="0" left="70"/>
+                </padding>
+
+                <children>
+                    <Label text="✉ contact@clinique.com" styleClass="top-contact-label"/>
+                    <Label text="📱 +1 5589 55488 55" styleClass="top-contact-label"/>
+                </children>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT"
+                  prefHeight="82"
+                  minHeight="82"
+                  styleClass="navbar">
+                <padding>
+                    <Insets top="0" right="70" bottom="0" left="70"/>
+                </padding>
+
+                <children>
+                    <Label text="Clinique Médicale" styleClass="brand-title"/>
+
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <HBox alignment="CENTER_RIGHT" spacing="18">
+                        <children>
+                            <Button text="Accueil" styleClass="nav-link"/>
+                            <Button text="Se connecter" styleClass="nav-outline-button"/>
+                            <Button text="S'inscrire"
+                                    styleClass="nav-primary-button"
+                                    onAction="#goToRegister"/>
+                        </children>
+                    </HBox>
+                </children>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <HBox alignment="CENTER" styleClass="login-main-wrapper">
+            <children>
+
+                <!-- Partie gauche -->
+                <VBox alignment="CENTER_LEFT"
+                      spacing="22"
+                      prefWidth="750"
+                      styleClass="login-left-panel">
+                    <padding>
+                        <Insets top="70" right="55" bottom="70" left="55"/>
+                    </padding>
+
+                    <children>
+                        <Label text="Connexion" styleClass="login-title"/>
+                        <Label text="Accédez à votre espace patient en toute sécurité."
+                               styleClass="login-subtitle"/>
+
+                        <TextField fx:id="emailField"
+                                   promptText="Email"
+                                   styleClass="input-field"
+                                   prefWidth="650"
+                                   prefHeight="46"/>
+
+                        <PasswordField fx:id="passwordField"
+                                       promptText="Mot de passe"
+                                       styleClass="input-field"
+                                       prefWidth="650"
+                                       prefHeight="46"/>
+
+                        <HBox alignment="CENTER_LEFT" prefWidth="650">
+                            <children>
+                                <CheckBox text="Se souvenir de moi" styleClass="remember-check"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Button text="Mot de passe oublié ?" styleClass="forgot-link"
+                                        onAction="#goToForgotPassword"/>
+                            </children>
+                        </HBox>
+
+                        <HBox alignment="CENTER_LEFT"
+                              spacing="16"
+                              prefWidth="330"
+                              prefHeight="78"
+                              styleClass="captcha-box">
+                            <padding>
+                                <Insets top="10" right="16" bottom="10" left="16"/>
+                            </padding>
+
+                            <children>
+                                <Label text="✔" styleClass="captcha-check"/>
+                                <Label text="Je ne suis pas un robot" styleClass="captcha-text"/>
+                            </children>
+                        </HBox>
+
+                        <Button text="Se connecter"
+                                onAction="#handleLogin"
+                                styleClass="primary-button"
+                                prefWidth="240"
+                                prefHeight="42"/>
+
+                        <HBox alignment="CENTER_LEFT" spacing="6">
+                            <children>
+                                <Label text="Pas encore de compte ?" styleClass="bottom-text"/>
+                                <Hyperlink text="Créer un compte"
+                                           styleClass="bottom-link"
+                                           onAction="#goToRegister"/>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+
+                <!-- Partie droite -->
+                <StackPane prefWidth="750" styleClass="login-right-panel">
+                    <children>
+                        <VBox alignment="CENTER"
+                              spacing="24"
+                              maxWidth="470">
+                            <children>
+                                <Label text="Bienvenue" styleClass="right-title"/>
+                                <Label text="Gérez vos rendez-vous médicaux, consultez vos résultats et accédez à votre dossier médical en toute sécurité."
+                                       wrapText="true"
+                                       maxWidth="430"
+                                       styleClass="right-text"/>
+                                <Button text="⌂ Retour à l'accueil"
+                                        styleClass="secondary-white-button"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </StackPane>
+
+            </children>
+        </HBox>
+    </center>
+
+</BorderPane>
