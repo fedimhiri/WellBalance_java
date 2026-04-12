@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.LoginController"
+            prefHeight="600.0" prefWidth="900.0"
+            style="-fx-background-color: linear-gradient(to bottom right, #667eea 0%, #764ba2 100%);">
+
+    <children>
+        <!-- Main Card -->
+        <StackPane layoutX="250.0" layoutY="100.0" prefHeight="400.0" prefWidth="400.0">
+            <effect>
+                <DropShadow color="#00000033" radius="20" spread="0.1"/>
+            </effect>
+
+            <VBox alignment="CENTER" spacing="25"
+                  style="-fx-background-color: white; -fx-background-radius: 20; -fx-padding: 40;">
+
+                <!-- Logo / Title -->
+                <VBox alignment="CENTER" spacing="10">
+                    <Label text="💬" style="-fx-font-size: 48;"/>
+                    <Label text="WellBalance Messenger" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+                    <Label text="Connectez-vous pour acceder a votre messagerie"
+                           style="-fx-font-size: 12; -fx-text-fill: #666;"/>
+                </VBox>
+
+                <!-- Form Fields -->
+                <VBox spacing="15" alignment="CENTER_LEFT">
+                    <!-- Email Field -->
+                    <VBox spacing="5">
+                        <Label text="Email" style="-fx-font-size: 12; -fx-text-fill: #555; -fx-font-weight: bold;"/>
+                        <TextField fx:id="emailField" promptText="ex: docteur.fedi@esprit.tn"
+                                   style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #ddd; -fx-padding: 12; -fx-font-size: 13;"/>
+                    </VBox>
+
+                    <!-- Password Field -->
+                    <VBox spacing="5">
+                        <Label text="Mot de passe" style="-fx-font-size: 12; -fx-text-fill: #555; -fx-font-weight: bold;"/>
+                        <PasswordField fx:id="passwordField" promptText="Votre mot de passe"
+                                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #ddd; -fx-padding: 12; -fx-font-size: 13;"/>
+                    </VBox>
+                </VBox>
+
+                <!-- Error Message -->
+                <Label fx:id="errorLabel" text="" visible="false"
+                       style="-fx-text-fill: #e74c3c; -fx-font-size: 12; -fx-wrap-text: true;"/>
+
+                <!-- Login Button -->
+                <Button fx:id="loginButton" text="Se connecter" onAction="#handleLogin"
+                        prefWidth="320.0" prefHeight="45.0"
+                        style="-fx-background-color: linear-gradient(to right, #667eea, #764ba2); -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14; -fx-background-radius: 8; -fx-cursor: hand;"/>
+
+                <!-- Demo Info -->
+                <VBox alignment="CENTER" spacing="5">
+                    <Label text="Comptes de demonstration:" style="-fx-font-size: 11; -fx-text-fill: #888; -fx-font-weight: bold;"/>
+                    <Label text="Docteur: docteur.fedi@esprit.tn / doctor123" style="-fx-font-size: 10; -fx-text-fill: #999;"/>
+                    <Label text="Patient: patient.amine@gmail.com / patient123" style="-fx-font-size: 10; -fx-text-fill: #999;"/>
+                </VBox>
+
+            </VBox>
+        </StackPane>
+    </children>
+</AnchorPane>

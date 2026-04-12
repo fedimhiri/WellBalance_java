@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import java.net.URL?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.AdminMessengerController"
+            prefHeight="700.0" prefWidth="1200.0"
+            styleClass="root">
+    
+    <stylesheets>
+        <URL value="@/css/admin_messenger.css" />
+    </stylesheets>
+
+    <!-- Top Header -->
+    <top>
+        <HBox fx:id="headerBox" prefHeight="70.0"
+              styleClass="header-box" alignment="CENTER_LEFT" spacing="15">
+            <padding>
+                <Insets left="20" right="20"/>
+            </padding>
+            <children>
+                <Label text="💬" style="-fx-font-size: 28;"/>
+                <Label text="WellBalance" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #0084ff;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <HBox alignment="CENTER" spacing="10">
+                    <StackPane>
+                        <Circle radius="18" fill="#0084ff"/>
+                        <Label fx:id="userAvatarLabel" text="D" style="-fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                    </StackPane>
+                    <VBox alignment="CENTER_LEFT" spacing="2">
+                        <Label fx:id="userNameLabel" text="Dr. Fedi" style="-fx-font-size: 14; -fx-font-weight: bold;"/>
+                        <Label text="En ligne" style="-fx-font-size: 11; -fx-text-fill: #31a24c;"/>
+                    </VBox>
+                </HBox>
+
+                <Button text="Deconnexion" onAction="#handleLogout"
+                        style="-fx-background-color: transparent; -fx-text-fill: #666; -fx-cursor: hand;"/>
+            </children>
+        </HBox>
+    </top>
+
+    <!-- Global Application Sidebar -->
+    <left>
+        <VBox prefWidth="250.0" styleClass="global-sidebar" spacing="20">
+            <children>
+                <Label text="MENU PRINCIPAL" style="-fx-font-size: 12; -fx-text-fill: #95a5a6; -fx-font-weight: bold;"/>
+                <Button text="Gestion de messagerie" styleClass="btn-nav" prefWidth="220.0" alignment="CENTER_LEFT">
+                    <padding><Insets top="12" right="15" bottom="12" left="15"/></padding>
+                </Button>
+                <!-- Space filler -->
+                <Region VBox.vgrow="ALWAYS" />
+            </children>
+        </VBox>
+    </left>
+
+    <!-- Main Content -->
+    <center>
+        <HBox>
+            <children>
+                <!-- Left Sidebar -->
+                <VBox prefWidth="350.0" minWidth="300.0" styleClass="sidebar">
+                    <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                    </padding>
+                    <children>
+                        <TextField fx:id="searchField" promptText="Rechercher une conversation..."
+                                   styleClass="search-field"/>
+                        <Pane prefHeight="10"/>
+                        <ScrollPane fx:id="conversationsScroll" fitToWidth="true" hbarPolicy="NEVER"
+                                    style="-fx-background-color: transparent; -fx-background: transparent;"
+                                    VBox.vgrow="ALWAYS">
+                            <content>
+                                <VBox fx:id="conversationsList" spacing="5" style="-fx-background-color: white;"/>
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </VBox>
+
+                <!-- Right Area (Chat or Empty State) -->
+                <StackPane HBox.hgrow="ALWAYS" styleClass="chat-container">
+                    <children>
+                        <!-- Right Side Chat -->
+                        <VBox fx:id="chatArea" visible="false">
+                            <children>
+                                <HBox prefHeight="70.0" style="-fx-background-color: white; -fx-border-color: #e4e6eb; -fx-border-width: 0 0 1 0;"
+                                      alignment="CENTER_LEFT" spacing="12">
+                                    <padding>
+                                        <Insets left="20" right="20"/>
+                                    </padding>
+                                    <children>
+                                        <StackPane>
+                                            <Circle radius="20" fill="#e4e6eb"/>
+                                            <Label fx:id="chatAvatarLabel" text="A" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #65676b;"/>
+                                        </StackPane>
+                                        <VBox alignment="CENTER_LEFT" spacing="3">
+                                            <Label fx:id="chatUserNameLabel" text="Amine Kadri" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                                            <Label fx:id="chatStatusLabel" text="Patient" style="-fx-font-size: 12; -fx-text-fill: #65676b;"/>
+                                        </VBox>
+                                        <Region HBox.hgrow="ALWAYS"/>
+                                        <Button text="⬅ Retour a l'accueil" onAction="#handleReturnHome"
+                                                style="-fx-background-color: transparent; -fx-text-fill: #0084ff; -fx-font-weight: bold; -fx-cursor: hand;"/>
+                                        <Button text="🗑" onAction="#handleDeleteConversation"
+                                                style="-fx-background-color: transparent; -fx-font-size: 18; -fx-cursor: hand;"/>
+                                    </children>
+                                </HBox>
+
+                                <ScrollPane fx:id="messagesScroll" VBox.vgrow="ALWAYS" fitToWidth="true" hbarPolicy="NEVER"
+                                            style="-fx-background-color: #f0f2f5; -fx-background: #f0f2f5;">
+                                    <content>
+                                        <VBox fx:id="messagesContainer" spacing="10" styleClass="messages-container"/>
+                                    </content>
+                                </ScrollPane>
+
+                                <Label fx:id="typingLabel" text="Le patient ecrit..." visible="false" managed="false"
+                                       style="-fx-font-size: 12; -fx-text-fill: #65676b; -fx-font-style: italic;">
+                                    <padding>
+                                        <Insets left="20" bottom="5"/>
+                                    </padding>
+                                </Label>
+
+                                <!-- Reply Preview -->
+                                <HBox fx:id="replyPreviewBox" visible="false" managed="false" alignment="CENTER_LEFT" spacing="10"
+                                      style="-fx-background-color: #e7f3ff; -fx-padding: 8 15; -fx-border-color: #0084ff; -fx-border-width: 0 0 0 3;">
+                                    <VBox HBox.hgrow="ALWAYS">
+                                        <Label text="En reponse a:" style="-fx-font-size: 10; -fx-text-fill: #0084ff; -fx-font-weight: bold;"/>
+                                        <Label fx:id="replyPreviewText" text="..." style="-fx-font-size: 12; -fx-text-fill: #333;" wrapText="true"/>
+                                    </VBox>
+                                    <Button text="✕" onAction="#handleCancelReply" style="-fx-background-color: transparent; -fx-text-fill: #666; -fx-cursor: hand; -fx-font-size: 14;"/>
+                                </HBox>
+
+                                <StackPane prefHeight="80.0" style="-fx-background-color: white; -fx-background-radius: 0 0 12 12; -fx-border-color: #e4e6eb; -fx-border-width: 1 0 0 0;">
+                                    <padding>
+                                        <Insets left="20" right="20"/>
+                                    </padding>
+                                    
+                                    <!-- Standard Input -->
+                                    <HBox fx:id="standardInputBox" alignment="CENTER" spacing="10">
+                                        <HBox alignment="CENTER" spacing="5">
+                                            <Button text="📎" onAction="#handleAttachment" style="-fx-background-color: transparent; -fx-font-size: 18; -fx-cursor: hand; -fx-text-fill: #0084ff;"/>
+                                            <Button fx:id="recordBtn" text="🎤" onAction="#handleVoiceRecord" style="-fx-background-color: transparent; -fx-font-size: 18; -fx-cursor: hand; -fx-text-fill: #e83f3f;"/>
+                                        </HBox>
+                                        
+                                        <TextArea fx:id="messageInput" promptText="Ecrivez votre message..."
+                                                  wrapText="true" styleClass="input-pill"
+                                                  prefHeight="45.0" minHeight="45.0" maxHeight="45.0" HBox.hgrow="ALWAYS"/>
+                                        
+                                        <HBox alignment="CENTER" spacing="5">
+                                            <Button text="😊" onAction="#handleEmojiPicker" style="-fx-background-color: transparent; -fx-font-size: 18; -fx-cursor: hand;"/>
+                                            <Button text="➤" onAction="#handleSendMessage"
+                                                    styleClass="btn-send" style="-fx-background-radius: 50; -fx-font-size: 16; -fx-padding: 8 15;"/>
+                                        </HBox>
+                                    </HBox>
+
+                                    <!-- Voice Review Overlay -->
+                                    <HBox fx:id="voiceReviewBox" visible="false" managed="false" alignment="CENTER" spacing="15" style="-fx-background-color: #f8f9fa; -fx-background-radius: 30; -fx-padding: 5 15;">
+                                        <Button fx:id="playPreviewBtn" text="▶" style="-fx-background-color: #0d6efd; -fx-text-fill: white; -fx-background-radius: 50; -fx-font-size: 14; -fx-cursor: hand;"/>
+                                        <Label text="Vocal pre-rentré" style="-fx-text-fill: #666; -fx-font-style: italic;"/>
+                                        <Region HBox.hgrow="ALWAYS"/>
+                                        <Button text="🗑 Annuler" onAction="#handleCancelVoice" style="-fx-background-color: transparent; -fx-text-fill: #dc3545; -fx-cursor: hand; -fx-font-weight: bold;"/>
+                                        <Button text="➤ Envoyer" onAction="#handleSendVoice" styleClass="btn-send" style="-fx-background-radius: 30; -fx-padding: 8 20;"/>
+                                    </HBox>
+                                </StackPane>
+                            </children>
+                        </VBox>
+
+                                                <VBox fx:id="emptyState" spacing="0" style="-fx-background-color: #f0f2f5;" StackPane.alignment="CENTER">
+                            <children>
+                                <!-- Hero Banner -->
+                                <VBox styleClass="dashboard-banner">
+                                    <VBox spacing="10">
+                                        <Label text="Hub Médical - Dr. Fedi" style="-fx-font-size: 32; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                                        <Label text="Votre activité en temps réel et priorités." style="-fx-font-size: 16; -fx-text-fill: rgba(255,255,255,0.9);"/>
+                                    </VBox>
+                                </VBox>
+                                
+                                <VBox spacing="25" VBox.vgrow="ALWAYS">
+                                    <padding><Insets top="-50" right="50" bottom="40" left="50"/></padding>
+                                    
+                                    <!-- Unified Hub Container -->
+                                    <VBox styleClass="hub-container" VBox.vgrow="ALWAYS" spacing="30">
+                                        <!-- Quick Stats Bar -->
+                                        <HBox spacing="20" alignment="CENTER">
+                                            <HBox styleClass="stat-pill" spacing="15" HBox.hgrow="ALWAYS">
+                                                <Label text="💬" style="-fx-font-size: 20;"/>
+                                                <VBox>
+                                                    <Label text="Conversations" style="-fx-font-size: 11; -fx-text-fill: #adb5bd; -fx-font-weight: bold;"/>
+                                                    <Label fx:id="statTotalConv" text="0" styleClass="value"/>
+                                                </VBox>
+                                            </HBox>
+                                            <HBox styleClass="stat-pill" spacing="15" HBox.hgrow="ALWAYS">
+                                                <Label text="✉️" style="-fx-font-size: 20;"/>
+                                                <VBox>
+                                                    <Label text="Non Lus" style="-fx-font-size: 11; -fx-text-fill: #adb5bd; -fx-font-weight: bold;"/>
+                                                    <Label fx:id="statUnread" text="0" styleClass="value"/>
+                                                </VBox>
+                                            </HBox>
+                                            <HBox styleClass="stat-pill" spacing="15" HBox.hgrow="ALWAYS" style="-fx-border-color: #ff4444; -fx-border-width: 0 0 3 0;">
+                                                <Label text="🚨" style="-fx-font-size: 20;"/>
+                                                <VBox>
+                                                    <Label text="Urgences" style="-fx-font-size: 11; -fx-text-fill: #ff4444; -fx-font-weight: bold;"/>
+                                                    <Label fx:id="statUrgent" text="0" styleClass="value" style="-fx-text-fill: #ff4444;"/>
+                                                </VBox>
+                                            </HBox>
+                                        </HBox>
+
+                                        <!-- Main Content Split -->
+                                        <HBox spacing="40" VBox.vgrow="ALWAYS">
+                                            <!-- Analytics Panel -->
+                                            <VBox spacing="20" HBox.hgrow="ALWAYS" maxWidth="500">
+                                                <Label text="Statistiques de Communication" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #343a40;"/>
+                                                <StackPane VBox.vgrow="ALWAYS" style="-fx-background-color: #f8f9fa; -fx-background-radius: 20; -fx-padding: 10;">
+                                                    <javafx.scene.chart.PieChart fx:id="messagesPieChart" legendSide="RIGHT" labelsVisible="true" animated="true"/>
+                                                </StackPane>
+                                            </VBox>
+                                            
+                                            <!-- Alerts Panel -->
+                                            <VBox spacing="20" HBox.hgrow="ALWAYS">
+                                                <HBox alignment="CENTER_LEFT">
+                                                    <Label text="File d'attente Prioritaire" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #343a40;"/>
+                                                    <Region HBox.hgrow="ALWAYS"/>
+                                                    <Label text="VOIR TOUT" style="-fx-text-fill: #0084ff; -fx-font-weight: bold; -fx-font-size: 11; -fx-cursor: hand;"/>
+                                                </HBox>
+                                                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
+                                                    <content>
+                                                        <VBox fx:id="urgentList" spacing="15"/>
+                                                    </content>
+                                                </ScrollPane>
+                                            </VBox>
+                                        </HBox>
+                                    </VBox>
+                                </VBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </StackPane>
+            </children>
+        </HBox>
+    </center>
+</BorderPane>
