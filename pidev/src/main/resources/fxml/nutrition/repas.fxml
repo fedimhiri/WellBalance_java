@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.nutrition.RepasController" spacing="10">
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Plan Nutrition: "/>
+        <ComboBox fx:id="planNutritionComboBox" prefWidth="250" promptText="-- Choisissez le plan --"/>
+    </HBox>
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Type de repas: "/>
+        <ComboBox fx:id="typeRepasComboBox" prefWidth="200" promptText="-- Recommandations --"/>
+        <Label text="Calories: "/>
+        <TextField fx:id="caloriesField"/>
+    </HBox>
+    
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Ajouter" onAction="#ajouter"/>
+        <Button text="Modifier" onAction="#modifier"/>
+        <Button text="Supprimer" onAction="#supprimer"/>
+    </HBox>
+    
+    <TableView fx:id="repasTableView" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colType" text="Type de repas" prefWidth="250"/>
+            <TableColumn fx:id="colCalories" text="Calories" prefWidth="250"/>
+        </columns>
+    </TableView>
+</VBox>

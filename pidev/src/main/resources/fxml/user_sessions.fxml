@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.UserSessionController"
+            prefWidth="1400.0" prefHeight="850.0"
+            styleClass="admin-root">
+
+    <!-- ===== SIDEBAR ===== -->
+    <left>
+        <VBox prefWidth="260" spacing="20" styleClass="sidebar">
+            <padding>
+                <Insets top="30" right="20" bottom="30" left="20"/>
+            </padding>
+
+            <Label text="symfony admin" styleClass="sidebar-logo"/>
+
+            <VBox spacing="10">
+                <Button text="Dashboard"
+                        styleClass="sidebar-button"
+                        maxWidth="Infinity"
+                        onAction="#goToDashboard"/>
+
+                <Button text="Front Office"
+                        styleClass="sidebar-button"
+                        maxWidth="Infinity"
+                        onAction="#goToFrontOffice"/>
+
+                <Button text="Mon profil"
+                        styleClass="sidebar-button"
+                        maxWidth="Infinity"
+                        onAction="#goToMyProfile"/>
+            </VBox>
+
+            <Label text="GESTION" styleClass="sidebar-section-title"/>
+
+            <VBox spacing="10">
+                <Button text="Utilisateurs"
+                        styleClass="sidebar-button"
+                        maxWidth="Infinity"
+                        onAction="#goToDashboard"/>
+
+                <Button text="Projets"
+                        styleClass="sidebar-button"
+                        maxWidth="Infinity"/>
+
+                <Button text="Commandes"
+                        styleClass="sidebar-button"
+                        maxWidth="Infinity"/>
+
+                <Button text="Statistiques"
+                        styleClass="sidebar-button"
+                        maxWidth="Infinity"/>
+
+                <Button text="Messages"
+                        styleClass="sidebar-button"
+                        maxWidth="Infinity"/>
+
+                <Button text="Sessions"
+                        styleClass="sidebar-button-active"
+                        maxWidth="Infinity"/>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button text="Se déconnecter"
+                    styleClass="logout-button"
+                    maxWidth="Infinity"
+                    onAction="#logout"/>
+        </VBox>
+    </left>
+
+    <!-- ===== CONTENU PRINCIPAL ===== -->
+    <center>
+        <VBox spacing="20" styleClass="admin-content">
+            <padding>
+                <Insets top="25" right="25" bottom="25" left="25"/>
+            </padding>
+
+            <Label text="Historique des sessions" styleClass="dashboard-title"/>
+
+            <VBox styleClass="content-card" spacing="15" VBox.vgrow="ALWAYS">
+                <Label text="Liste des connexions utilisateurs" styleClass="dashboard-title"/>
+
+                <TableView fx:id="tableSessions" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colId" text="#" prefWidth="60"/>
+                        <TableColumn fx:id="colUsername" text="USERNAME" prefWidth="180"/>
+                        <TableColumn fx:id="colRole" text="ROLE" prefWidth="180"/>
+                        <TableColumn fx:id="colLoginTime" text="LOGIN TIME" prefWidth="180"/>
+                        <TableColumn fx:id="colLogoutTime" text="LOGOUT TIME" prefWidth="180"/>
+                        <TableColumn fx:id="colStatus" text="STATUT" prefWidth="120"/>
+                        <TableColumn fx:id="colIp" text="IP ADDRESS" prefWidth="150"/>
+                        <TableColumn fx:id="colActions" text="ACTIONS" prefWidth="140"/>
+                    </columns>
+
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+        </VBox>
+    </center>
+
+</BorderPane>

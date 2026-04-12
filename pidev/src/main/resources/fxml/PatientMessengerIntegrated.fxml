@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.PatientMessengerController"
+            prefWidth="1400.0" prefHeight="850.0"
+            styleClass="front-root">
+
+    <!-- ===== HEADER (copié de front.fxml) ===== -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" styleClass="navbar" prefHeight="80">
+            <padding>
+                <Insets top="0" right="40" bottom="0" left="40"/>
+            </padding>
+
+            <children>
+                <Label text="WellBalance Front Office" styleClass="brand-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Button text="Mon profil" styleClass="nav-primary-button" onAction="#goToEditProfile"/>
+                <Button text="Messagerie" styleClass="nav-primary-button-active"/>
+                <Button text="Se déconnecter" styleClass="logout-button" onAction="#handleLogout"/>
+            </children>
+        </HBox>
+    </top>
+
+    <!-- ===== CONTENU MESSAGERIE (centré) ===== -->
+    <center>
+        <HBox styleClass="root" spacing="20">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            
+            <!-- Left Sidebar Conversations -->
+            <VBox prefWidth="400.0" minWidth="300.0" spacing="15">
+                <Label text="Mes Conversations" style="-fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #555;"/>
+                <TextField fx:id="searchField" promptText="Rechercher..." styleClass="search-field"/>
+
+                <ScrollPane fx:id="conversationsScroll" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS"
+                            style="-fx-background-color: transparent; -fx-background: transparent;">
+                    <content>
+                        <VBox fx:id="conversationsList" spacing="5"/>
+                    </content>
+                </ScrollPane>
+            </VBox>
+
+            <!-- Right Column Stacked -->
+            <StackPane HBox.hgrow="ALWAYS" styleClass="chat-container">
+                <children>
+                    <!-- Chat Area -->
+                    <VBox fx:id="chatArea" visible="false">
+                        <children>
+                            <!-- Chat Header -->
+                            <HBox prefHeight="70.0" styleClass="chat-header" alignment="CENTER_LEFT" spacing="12">
+                                <padding>
+                                    <Insets left="20" right="20"/>
+                                </padding>
+                                <children>
+                                    <Label fx:id="chatUserNameLabel" text="Dr." style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                                    <Label fx:id="chatStatusLabel" text="Docteur" style="-fx-font-size: 12; -fx-text-fill: #65676b;"/>
+                                    <Region HBox.hgrow="ALWAYS"/>
+                                    <Button text="🗑" onAction="#handleDeleteConversation"
+                                            style="-fx-background-color: transparent; -fx-font-size: 18; -fx-cursor: hand;"/>
+                                </children>
+                            </HBox>
+
+                            <!-- Messages Area -->
+                            <ScrollPane fx:id="messagesScroll" VBox.vgrow="ALWAYS" fitToWidth="true" hbarPolicy="NEVER"
+                                        style="-fx-background-color: white; -fx-background: white; -fx-border-color: transparent;">
+                                <content>
+                                    <VBox fx:id="messagesContainer" spacing="10" styleClass="messages-container"/>
+                                </content>
+                            </ScrollPane>
+
+                            <!-- Typing Indicator -->
+                            <Label fx:id="typingLabel" text="Le docteur ecrit..." visible="false" managed="false"
+                                   style="-fx-font-size: 12; -fx-text-fill: #65676b; -fx-font-style: italic; -fx-padding: 0 0 0 20;"/>
+
+                            <StackPane prefHeight="80.0" style="-fx-background-color: white; -fx-background-radius: 0 0 12 12; -fx-border-color: #e4e6eb; -fx-border-width: 1 0 0 0;">
+                                <padding>
+                                    <Insets left="20" right="20"/>
+                                </padding>
+                                
+                                <!-- Standard Input -->
+                                <HBox fx:id="standardInputBox" alignment="CENTER" spacing="10">
+                                    <HBox alignment="CENTER" spacing="5">
+                                        <Button text="📎" onAction="#handleAttachment" style="-fx-background-color: transparent; -fx-font-size: 18; -fx-cursor: hand; -fx-text-fill: #0d6efd;"/>
+                                        <Button fx:id="recordBtn" text="🎤" onAction="#handleVoiceRecord" style="-fx-background-color: transparent; -fx-font-size: 18; -fx-cursor: hand; -fx-text-fill: #e83f3f;"/>
+                                    </HBox>
+                                    
+                                    <TextArea fx:id="messageInput" promptText="Ecrivez votre message..."
+                                              wrapText="true" styleClass="input-pill"
+                                              prefHeight="45.0" minHeight="45.0" maxHeight="45.0" HBox.hgrow="ALWAYS"/>
+                                    
+                                    <HBox alignment="CENTER" spacing="5">
+                                        <Button text="😊" onAction="#handleEmojiPicker" style="-fx-background-color: transparent; -fx-font-size: 18; -fx-cursor: hand;"/>
+                                        <Button text="➤" onAction="#handleSendMessage"
+                                                styleClass="btn-primary" style="-fx-padding: 8 15; -fx-background-radius: 50; -fx-font-size: 16;"/>
+                                    </HBox>
+                                </HBox>
+
+                                <!-- Voice Review Overlay -->
+                                <HBox fx:id="voiceReviewBox" visible="false" managed="false" alignment="CENTER" spacing="15" style="-fx-background-color: #f8f9fa; -fx-background-radius: 30; -fx-padding: 5 15;">
+                                    <Button fx:id="playPreviewBtn" text="▶" style="-fx-background-color: #0d6efd; -fx-text-fill: white; -fx-background-radius: 50; -fx-font-size: 14; -fx-cursor: hand;"/>
+                                    <Label text="Vocal pre-rentré" style="-fx-text-fill: #666; -fx-font-style: italic;"/>
+                                    <Region HBox.hgrow="ALWAYS"/>
+                                    <Button text="🗑 Annuler" onAction="#handleCancelVoice" style="-fx-background-color: transparent; -fx-text-fill: #dc3545; -fx-cursor: hand; -fx-font-weight: bold;"/>
+                                    <Button text="➤ Envoyer" onAction="#handleSendVoice" styleClass="btn-primary" style="-fx-background-radius: 30; -fx-padding: 8 20;"/>
+                                </HBox>
+                            </StackPane>
+                        </children>
+                    </VBox>
+
+                    <!-- Dashboard (Accueil) -->
+                    <VBox fx:id="emptyState" spacing="20" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 40;" StackPane.alignment="CENTER">
+                        <Label text="✨ Nouvelle Consultation" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+                        
+                        <HBox spacing="15">
+                            <ComboBox fx:id="doctorCombo" promptText="Choisir un Medecin..." styleClass="combo-box" HBox.hgrow="ALWAYS" maxWidth="Infinity" prefHeight="45"/>
+                            <ComboBox fx:id="typeCombo" promptText="Type (ex: Urgence)" styleClass="combo-box" prefWidth="150" prefHeight="45"/>
+                        </HBox>
+                        
+                        <TextField fx:id="sujetField" promptText="Sujet de votre demande" styleClass="text-field" prefHeight="45"/>
+                        <TextArea fx:id="newMessageArea" promptText="Decrivez vos symptomes ou votre demande..." prefHeight="100" wrapText="true" styleClass="text-area"/>
+                        
+                        <HBox alignment="CENTER_RIGHT">
+                            <Button text="Envoyer la demande 🚀" onAction="#handleNewConversation" styleClass="btn-primary" style="-fx-padding: 12 30; -fx-font-size: 14;"/>
+                        </HBox>
+
+                        <!-- Stats -->
+                        <HBox spacing="20" alignment="CENTER">
+                            <VBox styleClass="card" alignment="CENTER" prefHeight="110" prefWidth="250">
+                                <Label fx:id="statTotalConv" text="0" style="-fx-font-size: 36; -fx-font-weight: bold; -fx-text-fill: #0d6efd;"/>
+                                <Label text="Discussions activées" style="-fx-text-fill: #666; -fx-font-size: 14;"/>
+                            </VBox>
+                            <VBox styleClass="card" alignment="CENTER" prefHeight="110" prefWidth="250">
+                                <Label fx:id="statUnread" text="0" style="-fx-font-size: 36; -fx-font-weight: bold; -fx-text-fill: #198754;"/>
+                                <Label text="Messages non lus" style="-fx-text-fill: #666; -fx-font-size: 14;"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </children>
+            </StackPane>
+        </HBox>
+    </center>
+
+</BorderPane>

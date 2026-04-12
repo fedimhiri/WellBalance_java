@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.EditProfileController"
+            prefWidth="1000" prefHeight="700"
+            styleClass="edit-user-root">
+
+    <!-- ===== SIDEBAR (même que admin dashboard) ===== -->
+    <left>
+        <VBox prefWidth="260" spacing="20" styleClass="sidebar">
+            <padding>
+                <Insets top="30" right="20" bottom="30" left="20"/>
+            </padding>
+
+            <Label text="symfony admin" styleClass="sidebar-logo"/>
+
+            <VBox spacing="10">
+                <Button text="Dashboard"    styleClass="sidebar-button" maxWidth="Infinity"
+                        onAction="#goToAdminDashboard"/>
+                <Button text="Front Office" styleClass="sidebar-button" maxWidth="Infinity"
+                        onAction="#goToFrontOffice"/>
+                <Button text="Mon profil"   styleClass="sidebar-button-active" maxWidth="Infinity"/>
+            </VBox>
+
+            <Label text="GESTION" styleClass="sidebar-section-title"/>
+
+            <VBox spacing="10">
+                <Button text="Utilisateurs" styleClass="sidebar-button" maxWidth="Infinity"/>
+                <Button text="Projets"      styleClass="sidebar-button" maxWidth="Infinity"/>
+                <Button text="Commandes"    styleClass="sidebar-button" maxWidth="Infinity"/>
+                <Button text="Statistiques" styleClass="sidebar-button" maxWidth="Infinity"/>
+                <Button text="Messages"     styleClass="sidebar-button" maxWidth="Infinity"/>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="Déconnexion" styleClass="sidebar-button" maxWidth="Infinity"
+                    onAction="#logout"/>
+        </VBox>
+    </left>
+
+    <!-- ===== CONTENU PRINCIPAL ===== -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+            <content>
+                <VBox spacing="25" maxWidth="700" alignment="TOP_CENTER">
+                    <padding>
+                        <Insets top="40" right="60" bottom="40" left="60"/>
+                    </padding>
+
+                    <!-- Titre Mon Profil -->
+                    <HBox alignment="CENTER" spacing="10">
+                        <Label text="👤" styleClass="profile-icon"/>
+                        <Label text="Mon Profil" styleClass="edit-title"/>
+                    </HBox>
+
+                    <!-- Card infos -->
+                    <VBox styleClass="content-card" spacing="18">
+                        <padding>
+                            <Insets top="25" right="25" bottom="25" left="25"/>
+                        </padding>
+
+                        <Label text="Adresse email" styleClass="field-label"/>
+                        <TextField fx:id="emailField" styleClass="profile-field"
+                                   promptText="Adresse email"/>
+
+                        <Label text="Nom d'utilisateur" styleClass="field-label"/>
+                        <TextField fx:id="usernameField" styleClass="profile-field"
+                                   promptText="Nom d'utilisateur"/>
+
+                        <Label text="Téléphone" styleClass="field-label"/>
+                        <TextField fx:id="telephoneField" styleClass="profile-field"
+                                   promptText="Téléphone"/>
+                    </VBox>
+
+                    <Separator/>
+
+                    <!-- Card mot de passe -->
+                    <VBox styleClass="content-card" spacing="18">
+                        <padding>
+                            <Insets top="25" right="25" bottom="25" left="25"/>
+                        </padding>
+
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                            <Label text="🔒" styleClass="profile-icon"/>
+                            <Label text="Modifier le mot de passe" styleClass="section-title-blue"/>
+                        </HBox>
+
+                        <Label text="Nouveau mot de passe" styleClass="field-label"/>
+                        <PasswordField fx:id="passwordField" styleClass="profile-field"
+                                       promptText="Nouveau mot de passe"/>
+
+                        <Label text="Confirmer le mot de passe" styleClass="field-label"/>
+                        <PasswordField fx:id="confirmPasswordField" styleClass="profile-field"
+                                       promptText="Confirmer le mot de passe"/>
+                    </VBox>
+
+                    <!-- Message erreur/succès -->
+                    <Label fx:id="messageLabel" styleClass="message-label" wrapText="true"/>
+
+                    <!-- Boutons -->
+                    <HBox spacing="15" alignment="CENTER_RIGHT">
+                        <Button text="Annuler" styleClass="reset-button"
+                                onAction="#handleCancel"/>
+                        <Button text="Enregistrer les modifications" styleClass="btn-save"
+                                onAction="#handleSave"/>
+                    </HBox>
+
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

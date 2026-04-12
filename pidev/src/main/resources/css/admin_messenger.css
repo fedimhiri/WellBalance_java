@@ -1,0 +1,285 @@
+.root {
+    -fx-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -fx-background-color: #f5f7fb;
+}
+
+.header-box {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, #00000022, 4, 0, 0, 2);
+}
+
+/* Sidebar Global */
+.global-sidebar {
+    -fx-background-color: #2c3e50;
+    -fx-padding: 20 15;
+}
+.btn-nav {
+    -fx-background-color: #34495e;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+.btn-nav:hover {
+    -fx-background-color: #3b5368;
+}
+
+/* Card */
+.card {
+    -fx-background-color: linear-gradient(to bottom right, #ffffff, #f4f7fc);
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 15, 0, 0, 5);
+    -fx-border-color: rgba(0,0,0,0.05);
+    -fx-border-radius: 15;
+    -fx-border-width: 1;
+}
+
+.combo-box, .text-field, .text-area {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #dee2e6;
+    -fx-background-color: white;
+}
+.combo-box:focused, .text-field:focused, .text-area:focused {
+    -fx-border-color: #0d6efd;
+    -fx-effect: dropshadow(gaussian, rgba(13, 110, 253, 0.25), 5, 0, 0, 0);
+}
+
+/* Chat container and structure */
+.chat-container {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, #00000011, 4, 0, 0, 2);
+}
+
+.chat-header {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 12 12 0 0;
+    -fx-border-color: #e4e6eb;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* Conversations List */
+.sidebar {
+    -fx-background-color: transparent;
+}
+
+.search-field {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-padding: 8 15 8 15;
+}
+.search-field:focused {
+    -fx-border-color: #0d6efd;
+    -fx-effect: dropshadow(gaussian, rgba(13, 110, 253, 0.25), 5, 0, 0, 0);
+}
+
+.conversation-box {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-border-width: 0 0 1 0;
+}
+.conversation-box:hover {
+    -fx-background-color: #f8f9fa;
+}
+.conversation-box-active {
+    -fx-background-color: #e7f3ff;
+    -fx-border-color: #0d6efd;
+    -fx-border-width: 0 0 0 4;
+}
+
+.avatar-circle {
+    -fx-background-color: #e4e6eb;
+}
+.avatar-text {
+    -fx-text-fill: #65676b;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+.avatar-circle-mine {
+    -fx-background-color: #0084ff;
+}
+.avatar-text-mine {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+/* Messages Area */
+.messages-container {
+    -fx-background-color: #f0f2f5;
+    -fx-padding: 20;
+}
+
+.message-bubble-mine {
+    -fx-background-color: #0084ff;
+    -fx-background-radius: 6;
+    -fx-padding: 10 16 10 16;
+    -fx-border-color: #0077e6;
+    -fx-border-radius: 6;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
+}
+.message-bubble-theirs {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 6;
+    -fx-padding: 10 16 10 16;
+    -fx-border-color: #e4e6eb;
+    -fx-border-radius: 6;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 1, 0, 0, 1);
+}
+
+.message-text-mine {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+.message-text-theirs {
+    -fx-text-fill: #1c1e21;
+    -fx-font-size: 14px;
+}
+
+.message-time-mine {
+    -fx-text-fill: rgba(255,255,255,0.8);
+    -fx-font-size: 10px;
+}
+.message-time-theirs {
+    -fx-text-fill: #65676b;
+    -fx-font-size: 10px;
+}
+
+.chat-input-area {
+    -fx-background-color: white;
+    -fx-background-radius: 0 0 12 12;
+    -fx-border-color: #e4e6eb;
+    -fx-border-width: 1 0 0 0;
+}
+.input-pill {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-border-color: #dee2e6;
+    -fx-padding: 5 15;
+    -fx-font-size: 14px;
+}
+
+.btn-send {
+    -fx-background-color: linear-gradient(to right, #0d6efd, #0b5ed7);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+}
+.btn-send:hover {
+    -fx-background-color: linear-gradient(to right, #0b5ed7, #0a58ca);
+}
+
+.unread-badge {
+    -fx-background-color: #ff4444;
+    -fx-background-radius: 10;
+}
+.unread-badge-text {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 10px;
+}
+
+/* Dashboard Premium Styles */
+.dashboard-banner {
+    -fx-background-color: linear-gradient(to bottom right, #0084ff, #00c6ff, #0056b3);
+    -fx-background-radius: 20 20 0 0;
+    -fx-padding: 50 60;
+}
+
+.hub-container {
+    -fx-background-color: white;
+    -fx-background-radius: 30;
+    -fx-padding: 30;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 30, 0, 0, 15);
+}
+
+.stat-pill {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 50;
+    -fx-padding: 15 25;
+    -fx-border-color: #e9ecef;
+    -fx-border-width: 1;
+    -fx-alignment: center;
+}
+.stat-pill-vibrant {
+    -fx-background-color: linear-gradient(to right, #4facfe, #00f2fe);
+    -fx-text-fill: white;
+}
+
+.stat-pill .label {
+    -fx-font-size: 14;
+    -fx-text-fill: #495057;
+}
+.stat-pill .value {
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+    -fx-text-fill: #212529;
+}
+
+.glass-card {
+    -fx-background-color: rgba(255, 255, 255, 0.85);
+    -fx-background-radius: 25;
+    -fx-border-color: rgba(255, 255, 255, 0.5);
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.12), 20, 0, 0, 8);
+}
+
+.vibrant-gradient-1 {
+    -fx-background-color: linear-gradient(to bottom right, #4facfe 0%, #00f2fe 100%);
+}
+.vibrant-gradient-2 {
+    -fx-background-color: linear-gradient(to bottom right, #fa709a 0%, #fee140 100%);
+}
+.vibrant-gradient-3 {
+    -fx-background-color: linear-gradient(to bottom right, #667eea 0%, #764ba2 100%);
+}
+
+.stat-card {
+    -fx-background-radius: 20;
+    -fx-padding: 20;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease;
+}
+.stat-card:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 20, 0, 0, 8);
+}
+
+.stat-value {
+    -fx-font-size: 34;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.stat-title {
+    -fx-font-size: 13;
+    -fx-text-fill: rgba(255, 255, 255, 0.9);
+    -fx-font-weight: bold;
+    -fx-text-transform: uppercase;
+    -fx-letter-spacing: 1px;
+}
+
+.activity-row {
+    -fx-padding: 12 15;
+    -fx-background-radius: 10;
+    -fx-border-color: #f1f3f5;
+    -fx-border-width: 0 0 1 0;
+}
+.activity-row:hover {
+    -fx-background-color: #f8f9fa;
+}
+
+.chart-wrapper {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-padding: 25;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 20, 0, 0, 10);
+}

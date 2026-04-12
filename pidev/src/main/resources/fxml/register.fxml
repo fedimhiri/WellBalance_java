@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.RegisterController"
+            prefWidth="1500.0" prefHeight="900.0"
+            styleClass="login-root">
+
+    <top>
+        <VBox>
+            <HBox alignment="CENTER_LEFT"
+                  spacing="30"
+                  prefHeight="42"
+                  minHeight="42"
+                  maxHeight="42"
+                  styleClass="top-contact-bar">
+                <padding>
+                    <Insets top="0" right="70" bottom="0" left="70"/>
+                </padding>
+
+                <children>
+                    <Label text="✉ contact@clinique.com" styleClass="top-contact-label"/>
+                    <Label text="📱 +1 5589 55488 55" styleClass="top-contact-label"/>
+                </children>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT"
+                  prefHeight="82"
+                  minHeight="82"
+                  styleClass="navbar">
+                <padding>
+                    <Insets top="0" right="70" bottom="0" left="70"/>
+                </padding>
+
+                <children>
+                    <Label text="Clinique Médicale" styleClass="brand-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <HBox alignment="CENTER_RIGHT" spacing="18">
+                        <children>
+                            <Button text="Accueil" styleClass="nav-link"/>
+                            <Button text="Se connecter" styleClass="nav-outline-button" onAction="#goToLogin"/>
+                            <Button text="S'inscrire" styleClass="nav-primary-button"/>
+                        </children>
+                    </HBox>
+                </children>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <StackPane styleClass="register-wrapper">
+            <children>
+                <VBox spacing="20" maxWidth="1400" prefWidth="1400" styleClass="register-card">
+                    <padding>
+                        <Insets top="30" right="30" bottom="30" left="30"/>
+                    </padding>
+
+                    <children>
+                        <Label text="Créer un compte" styleClass="login-title"/>
+                        <Label text="Inscrivez-vous pour accéder à votre espace patient."
+                               styleClass="login-subtitle"/>
+
+                        <TextField fx:id="emailField" promptText="Email" styleClass="input-field" prefHeight="46"/>
+                        <TextField fx:id="usernameField" promptText="Nom d’utilisateur" styleClass="input-field" prefHeight="46"/>
+                        <TextField fx:id="telephoneField" promptText="Téléphone (8 chiffres)" styleClass="input-field" prefHeight="46"/>
+                        <PasswordField fx:id="passwordField" promptText="Mot de passe" styleClass="input-field" prefHeight="46"/>
+                        <PasswordField fx:id="confirmPasswordField" promptText="Confirmer le mot de passe" styleClass="input-field" prefHeight="46"/>
+
+                        <CheckBox fx:id="agreeTermsCheckBox" text="Agree terms" styleClass="remember-check"/>
+
+                        <Button text="Créer mon compte"
+                                onAction="#handleRegister"
+                                styleClass="primary-button"
+                                maxWidth="1.7976931348623157E308"
+                                prefHeight="46"/>
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.nutrition.PlanNutritionController" spacing="10">
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Objectif: "/>
+        <ComboBox fx:id="objectifComboBox" prefWidth="180" promptText="-- Choisissez --"/>
+        <Label text="Période: "/>
+        <TextField fx:id="periodeField"/>
+    </HBox>
+    <VBox spacing="5">
+        <Label text="Description: "/>
+        <TextArea fx:id="descriptionArea" prefRowCount="3"/>
+    </VBox>
+    
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Ajouter" onAction="#ajouter"/>
+        <Button text="Modifier" onAction="#modifier"/>
+        <Button text="Supprimer" onAction="#supprimer"/>
+    </HBox>
+    
+    <TableView fx:id="planTableView" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colObjectif" text="Objectif" prefWidth="150"/>
+            <TableColumn fx:id="colPeriode" text="Période" prefWidth="150"/>
+            <TableColumn fx:id="colDescription" text="Description" prefWidth="250"/>
+        </columns>
+    </TableView>
+</VBox>

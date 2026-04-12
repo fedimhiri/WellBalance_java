@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.nutrition.NutritionFrontController" spacing="20" styleClass="front-root">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    
+    <Label text="Gestion de la Nutrition" styleClass="front-title"/>
+    
+    <Button text="Retour à l'accueil" onAction="#goToFrontOffice" styleClass="nav-primary-button"/>
+    
+    <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+        <tabs>
+            <Tab text="Plan Nutrition">
+                <content>
+                    <fx:include source="plan_nutrition.fxml"/>
+                </content>
+            </Tab>
+            <Tab text="Repas">
+                <content>
+                    <fx:include source="repas.fxml"/>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
+</VBox>
