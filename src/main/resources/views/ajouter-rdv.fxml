@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.wellbalance.controllers.AjouterRendezVousController"
+      spacing="18"
+      styleClass="page-container">
+
+    <HBox alignment="CENTER_LEFT" spacing="15" styleClass="top-bar">
+        <Button text="⬅ Menu" styleClass="menu-button"/>
+        <Label text="WellBalance - Ajouter un rendez-vous" styleClass="page-title"/>
+    </HBox>
+
+    <HBox spacing="20" VBox.vgrow="ALWAYS">
+
+        <VBox spacing="14" styleClass="card" HBox.hgrow="ALWAYS">
+            <Label text="Créer un nouveau rendez-vous" styleClass="card-title"/>
+            <Separator/>
+
+            <Label text="Date" styleClass="section-label"/>
+            <DatePicker fx:id="datePicker"/>
+
+            <Label text="Heure" styleClass="section-label"/>
+            <TextField fx:id="heureField" promptText="HH:mm"/>
+
+            <Label text="Statut" styleClass="section-label"/>
+            <TextField fx:id="statutField" promptText="Statut"/>
+
+            <Label text="Remarque" styleClass="section-label"/>
+            <TextArea fx:id="remarqueArea" promptText="Remarque" prefHeight="100"/>
+
+            <Label text="Type de rendez-vous" styleClass="section-label"/>
+            <ComboBox fx:id="comboType" promptText="Choisir un type"/>
+
+            <HBox spacing="12">
+                <Button text="Ajouter" onAction="#ajouterRendezVous" styleClass="success-button" prefWidth="160"/>
+                <Button text="Annuler / Nouveau" onAction="#clearFields" styleClass="secondary-button" prefWidth="180"/>
+            </HBox>
+        </VBox>
+
+    </HBox>
+</VBox>

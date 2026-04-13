@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.wellbalance.controllers.ModifierRendezVousController"
+      spacing="20"
+      styleClass="page-container">
+
+    <VBox spacing="12" styleClass="card" HBox.hgrow="ALWAYS">
+        <Label text="Gestion des rendez-vous" styleClass="card-title"/>
+        <TableView fx:id="rendezVousTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+                <TableColumn fx:id="colDate" text="Date" prefWidth="110"/>
+                <TableColumn fx:id="colHeure" text="Heure" prefWidth="90"/>
+                <TableColumn fx:id="colStatut" text="Statut" prefWidth="120"/>
+                <TableColumn fx:id="colRemarque" text="Remarque" prefWidth="220"/>
+                <TableColumn fx:id="colType" text="Type" prefWidth="140"/>
+            </columns>
+        </TableView>
+    </VBox>
+
+    <VBox spacing="12" styleClass="card" prefWidth="400">
+        <Label text="Modifier le rendez-vous sélectionné" styleClass="card-title"/>
+        <Separator/>
+
+        <Label text="Date" styleClass="section-label"/>
+        <DatePicker fx:id="datePicker"/>
+
+        <Label text="Heure" styleClass="section-label"/>
+        <TextField fx:id="heureField" promptText="HH:mm"/>
+
+        <Label text="Statut" styleClass="section-label"/>
+        <TextField fx:id="statutField"/>
+
+        <Label text="Remarque" styleClass="section-label"/>
+        <TextArea fx:id="remarqueArea" prefHeight="90"/>
+
+        <Label text="Type de rendez-vous" styleClass="section-label"/>
+        <ComboBox fx:id="comboType"/>
+
+        <HBox spacing="10">
+            <Button text="Confirmer modification" onAction="#modifierRendezVous" prefWidth="180"/>
+            <Button text="Annuler / Nouveau" onAction="#clearFields" styleClass="secondary-button" prefWidth="170"/>
+        </HBox>
+    </VBox>
+</HBox>

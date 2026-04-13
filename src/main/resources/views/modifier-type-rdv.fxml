@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.wellbalance.controllers.ModifierTypeRendezVousController"
+      spacing="20"
+      styleClass="page-container">
+
+    <VBox spacing="12" styleClass="card" HBox.hgrow="ALWAYS">
+        <Label text="Gestion des types de rendez-vous" styleClass="card-title"/>
+        <TableView fx:id="typeTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+                <TableColumn fx:id="colLibelle" text="Libellé" prefWidth="150"/>
+                <TableColumn fx:id="colDescription" text="Description" prefWidth="220"/>
+                <TableColumn fx:id="colDuree" text="Durée" prefWidth="90"/>
+                <TableColumn fx:id="colPrix" text="Prix" prefWidth="90"/>
+                <TableColumn fx:id="colCategorie" text="Catégorie" prefWidth="140"/>
+            </columns>
+        </TableView>
+    </VBox>
+
+    <VBox spacing="12" styleClass="card" prefWidth="400">
+        <Label text="Modifier le type sélectionné" styleClass="card-title"/>
+        <Separator/>
+
+        <Label text="Informations" styleClass="section-label"/>
+        <TextField fx:id="libelleField" promptText="Libellé"/>
+        <TextArea fx:id="descriptionArea" promptText="Description" prefHeight="90"/>
+        <TextField fx:id="dureeField" promptText="Durée"/>
+        <TextField fx:id="prixField" promptText="Prix"/>
+        <TextField fx:id="categorieField" promptText="Catégorie"/>
+
+        <HBox spacing="10">
+            <Button text="Confirmer modification" onAction="#modifierTypeRendezVous" prefWidth="180"/>
+            <Button text="Annuler / Nouveau" onAction="#clearFields" styleClass="secondary-button" prefWidth="170"/>
+        </HBox>
+    </VBox>
+</HBox>

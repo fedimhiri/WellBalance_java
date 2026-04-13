@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.wellbalance.controllers.SupprimerRendezVousController"
+      spacing="18"
+      styleClass="page-container">
+
+    <HBox alignment="CENTER_LEFT" spacing="15" styleClass="top-bar">
+        <Button text="⬅ Menu" onAction="#retourMenu" styleClass="menu-button"/>        <Label text="Suppression des rendez-vous" styleClass="page-title"/>
+    </HBox>
+
+    <VBox spacing="14" styleClass="card" VBox.vgrow="ALWAYS">
+        <TableView fx:id="rendezVousTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="70"/>
+                <TableColumn fx:id="colDate" text="Date" prefWidth="120"/>
+                <TableColumn fx:id="colHeure" text="Heure" prefWidth="100"/>
+                <TableColumn fx:id="colStatut" text="Statut" prefWidth="140"/>
+                <TableColumn fx:id="colRemarque" text="Remarque" prefWidth="250"/>
+                <TableColumn fx:id="colType" text="Type" prefWidth="180"/>
+            </columns>
+        </TableView>
+
+        <HBox alignment="CENTER_RIGHT">
+            <Button text="Supprimer sélection" onAction="#supprimerRendezVous" styleClass="danger-button"/>
+        </HBox>
+    </VBox>
+</VBox>

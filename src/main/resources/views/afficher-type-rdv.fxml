@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.wellbalance.controllers.AfficherTypeRendezVousController"
+      spacing="18"
+      styleClass="page-container">
+
+    <HBox alignment="CENTER_LEFT" spacing="15" styleClass="top-bar">
+        <Button text="⬅ Menu" styleClass="menu-button"/>
+        <Label text="WellBalance - Liste des types de rendez-vous" styleClass="page-title"/>
+    </HBox>
+
+    <VBox spacing="14" styleClass="card" VBox.vgrow="ALWAYS">
+        <HBox alignment="CENTER_RIGHT">
+            <Button text="Actualiser" onAction="#loadData" styleClass="warning-button"/>
+        </HBox>
+
+        <TableView fx:id="typeTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="70"/>
+                <TableColumn fx:id="colLibelle" text="Libellé" prefWidth="180"/>
+                <TableColumn fx:id="colDescription" text="Description" prefWidth="280"/>
+                <TableColumn fx:id="colDuree" text="Durée" prefWidth="100"/>
+                <TableColumn fx:id="colPrix" text="Prix" prefWidth="110"/>
+                <TableColumn fx:id="colCategorie" text="Catégorie" prefWidth="180"/>
+            </columns>
+        </TableView>
+    </VBox>
+</VBox>

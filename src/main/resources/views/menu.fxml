@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.example.wellbalance.controllers.MenuController">
+
+    <VBox spacing="25" alignment="CENTER" styleClass="content-pane">
+
+        <VBox alignment="CENTER" spacing="5">
+            <Label text="WellBalance" styleClass="page-title"/>
+            <Label text="Gestion des rendez-vous" styleClass="section-subtitle"/>
+        </VBox>
+
+        <HBox spacing="30">
+
+            <!-- TYPE RENDEZ VOUS -->
+            <VBox spacing="15" styleClass="card" alignment="CENTER">
+                <Label text="Type RendezVous" styleClass="page-title"/>
+
+                <Button text="Ajouter" onAction="#openAjouterType" styleClass="menu-button" prefWidth="180"/>
+                <Button text="Afficher" onAction="#openAfficherType" styleClass="menu-button" prefWidth="180"/>
+                <Button text="Modifier" onAction="#openModifierType" styleClass="menu-button" prefWidth="180"/>
+                <Button text="Supprimer" onAction="#openSupprimerType" styleClass="menu-button" prefWidth="180"/>
+            </VBox>
+
+            <!-- RENDEZ VOUS -->
+            <VBox spacing="15" styleClass="card" alignment="CENTER">
+                <Label text="RendezVous" styleClass="page-title"/>
+
+                <Button text="Ajouter" onAction="#openAjouterRdv" styleClass="menu-button" prefWidth="180"/>
+                <Button text="Afficher" onAction="#openAfficherRdv" styleClass="menu-button" prefWidth="180"/>
+                <Button text="Modifier" onAction="#openModifierRdv" styleClass="menu-button" prefWidth="180"/>
+                <Button text="Supprimer" onAction="#openSupprimerRdv" styleClass="menu-button" prefWidth="180"/>
+            </VBox>
+
+        </HBox>
+
+    </VBox>
+
+</StackPane>
