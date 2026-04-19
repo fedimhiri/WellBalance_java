@@ -1,43 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml"
-           fx:controller="org.example.wellbalance.controllers.MenuController">
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.wellbalance.controllers.MenuController"
+            styleClass="app-shell">
 
-    <VBox spacing="25" alignment="CENTER" styleClass="content-pane">
+    <left>
+        <VBox styleClass="sidebar">
+            <VBox styleClass="brand-block">
+                <Label text="symfony admin" styleClass="brand-title"/>
+                <Label text="Interface rendez-vous" styleClass="brand-subtitle"/>
+            </VBox>
 
-        <VBox alignment="CENTER" spacing="5">
-            <Label text="WellBalance" styleClass="page-title"/>
-            <Label text="Gestion des rendez-vous" styleClass="section-subtitle"/>
+            <Label text="DASHBOARD" styleClass="sidebar-section"/>
+            <Button text="Tableau de bord" onAction="#openDashboard" styleClass="sidebar-button"/>
+
+            <Label text="GESTION" styleClass="sidebar-section"/>
+            <Button text="Ajouter rendez-vous" onAction="#openAjouterRdv" styleClass="sidebar-button-outline"/>
+            <Button text="Liste rendez-vous" onAction="#openAfficherRdv" styleClass="sidebar-button-outline"/>
+            <Button text="Validation admin" onAction="#openModifierRdv" styleClass="sidebar-button-outline"/>
+            <Button text="Suppression rendez-vous" onAction="#openSupprimerRdv" styleClass="sidebar-button-outline"/>
+            <Button text="Ajouter type" onAction="#openAjouterType" styleClass="sidebar-button-outline"/>
+            <Button text="Liste des types" onAction="#openAfficherType" styleClass="sidebar-button-outline"/>
+            <Button text="Modifier type" onAction="#openModifierType" styleClass="sidebar-button-outline"/>
+            <Button text="Supprimer type" onAction="#openSupprimerType" styleClass="sidebar-button-outline"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <VBox styleClass="sidebar-note">
+                <Label text="Perimetre actuel" styleClass="sidebar-note-title"/>
+                <Label text="Cette interface couvre uniquement les rendez-vous, les types et les statistiques associees."
+                       wrapText="true"
+                       styleClass="sidebar-note-text"/>
+            </VBox>
         </VBox>
+    </left>
 
-        <HBox spacing="30">
+    <center>
+        <VBox styleClass="page-container">
+            <HBox styleClass="top-searchbar" spacing="14">
+                <TextField promptText="Search..." styleClass="top-search-field" HBox.hgrow="ALWAYS"/>
+                <Label text="M" styleClass="avatar-badge"/>
+            </HBox>
 
-            <!-- TYPE RENDEZ VOUS -->
-            <VBox spacing="15" styleClass="card" alignment="CENTER">
-                <Label text="Type RendezVous" styleClass="page-title"/>
-
-                <Button text="Ajouter" onAction="#openAjouterType" styleClass="menu-button" prefWidth="180"/>
-                <Button text="Afficher" onAction="#openAfficherType" styleClass="menu-button" prefWidth="180"/>
-                <Button text="Modifier" onAction="#openModifierType" styleClass="menu-button" prefWidth="180"/>
-                <Button text="Supprimer" onAction="#openSupprimerType" styleClass="menu-button" prefWidth="180"/>
+            <VBox spacing="2">
+                <Label text="Dashboard Rendez-vous" styleClass="page-title"/>
+                <Label text="Navigation corrigee, statistiques temps reel et visualisation JavaFX." styleClass="page-subtitle"/>
             </VBox>
 
-            <!-- RENDEZ VOUS -->
-            <VBox spacing="15" styleClass="card" alignment="CENTER">
-                <Label text="RendezVous" styleClass="page-title"/>
+            <HBox spacing="18">
+                <VBox styleClass="metric-card" prefWidth="190">
+                    <Label text="TOTAL RDV" styleClass="metric-label"/>
+                    <Label fx:id="totalRdvLabel" text="0" styleClass="metric-value"/>
+                    <Label text="Tous les rendez-vous" styleClass="page-subtitle"/>
+                </VBox>
+                <VBox styleClass="metric-card" prefWidth="190">
+                    <Label text="EN COURS" styleClass="metric-label"/>
+                    <Label fx:id="pendingRdvLabel" text="0" styleClass="metric-value"/>
+                    <Label text="Attente admin" styleClass="page-subtitle"/>
+                </VBox>
+                <VBox styleClass="metric-card" prefWidth="190">
+                    <Label text="ACCEPTES" styleClass="metric-label"/>
+                    <Label fx:id="acceptedRdvLabel" text="0" styleClass="metric-value"/>
+                    <Label text="Valides" styleClass="page-subtitle"/>
+                </VBox>
+                <VBox styleClass="metric-card" prefWidth="190">
+                    <Label text="REFUSES" styleClass="metric-label"/>
+                    <Label fx:id="refusedRdvLabel" text="0" styleClass="metric-value"/>
+                    <Label text="Non retenus" styleClass="page-subtitle"/>
+                </VBox>
+                <VBox styleClass="metric-card" prefWidth="190">
+                    <Label text="AUJOURD'HUI" styleClass="metric-label"/>
+                    <Label fx:id="todayRdvLabel" text="0" styleClass="metric-value"/>
+                    <Label text="Date du jour" styleClass="page-subtitle"/>
+                </VBox>
+            </HBox>
 
-                <Button text="Ajouter" onAction="#openAjouterRdv" styleClass="menu-button" prefWidth="180"/>
-                <Button text="Afficher" onAction="#openAfficherRdv" styleClass="menu-button" prefWidth="180"/>
-                <Button text="Modifier" onAction="#openModifierRdv" styleClass="menu-button" prefWidth="180"/>
-                <Button text="Supprimer" onAction="#openSupprimerRdv" styleClass="menu-button" prefWidth="180"/>
-            </VBox>
+            <HBox spacing="18" VBox.vgrow="ALWAYS">
+                <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <VBox spacing="2">
+                            <Label text="Repartition des statuts" styleClass="card-title"/>
+                            <Label text="Vue synthese des rendez-vous en cours, acceptes et refuses." styleClass="page-subtitle"/>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="Rafraichir" onAction="#refreshDashboard" styleClass="secondary-button"/>
+                    </HBox>
+                    <PieChart fx:id="statutChart" VBox.vgrow="ALWAYS"/>
+                </VBox>
 
-        </HBox>
-
-    </VBox>
-
-</StackPane>
+                <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                    <Label text="Activite rendez-vous" styleClass="card-title"/>
+                    <Label text="Comparaison rapide entre les indicateurs principaux." styleClass="page-subtitle"/>
+                    <BarChart fx:id="activiteChart" legendVisible="false" categoryGap="18" barGap="6" VBox.vgrow="ALWAYS">
+                        <xAxis>
+                            <CategoryAxis/>
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis/>
+                        </yAxis>
+                    </BarChart>
+                </VBox>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

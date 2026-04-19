@@ -1,49 +1,145 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 
-<HBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.example.wellbalance.controllers.ModifierRendezVousController"
-      spacing="20"
-      styleClass="page-container">
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.wellbalance.controllers.ModifierRendezVousController"
+            styleClass="app-shell">
 
-    <VBox spacing="12" styleClass="card" HBox.hgrow="ALWAYS">
-        <Label text="Gestion des rendez-vous" styleClass="card-title"/>
-        <TableView fx:id="rendezVousTable" VBox.vgrow="ALWAYS">
-            <columns>
-                <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
-                <TableColumn fx:id="colDate" text="Date" prefWidth="110"/>
-                <TableColumn fx:id="colHeure" text="Heure" prefWidth="90"/>
-                <TableColumn fx:id="colStatut" text="Statut" prefWidth="120"/>
-                <TableColumn fx:id="colRemarque" text="Remarque" prefWidth="220"/>
-                <TableColumn fx:id="colType" text="Type" prefWidth="140"/>
-            </columns>
-        </TableView>
-    </VBox>
+    <left>
+        <VBox styleClass="sidebar">
+            <VBox styleClass="brand-block">
+                <Label text="symfony admin" styleClass="brand-title"/>
+                <Label text="Interface rendez-vous" styleClass="brand-subtitle"/>
+            </VBox>
+            <Label text="DASHBOARD" styleClass="sidebar-section"/>
+            <Button text="Tableau de bord" onAction="#openDashboard" styleClass="sidebar-button-outline"/>
+            <Label text="GESTION" styleClass="sidebar-section"/>
+            <Button text="Ajouter rendez-vous" onAction="#openAjouterRdv" styleClass="sidebar-button-outline"/>
+            <Button text="Liste rendez-vous" onAction="#openAfficherRdv" styleClass="sidebar-button-outline"/>
+            <Button text="Validation admin" onAction="#openModifierRdv" styleClass="sidebar-button"/>
+            <Button text="Suppression rendez-vous" onAction="#openSupprimerRdv" styleClass="sidebar-button-outline"/>
+            <Button text="Ajouter type" onAction="#openAjouterType" styleClass="sidebar-button-outline"/>
+            <Button text="Liste des types" onAction="#openAfficherType" styleClass="sidebar-button-outline"/>
+            <Button text="Modifier type" onAction="#openModifierType" styleClass="sidebar-button-outline"/>
+            <Button text="Supprimer type" onAction="#openSupprimerType" styleClass="sidebar-button-outline"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <VBox styleClass="sidebar-note">
+                <Label text="Traitement central" styleClass="sidebar-note-title"/>
+                <Label text="Interface compacte pour garder les actions visibles." wrapText="true" styleClass="sidebar-note-text"/>
+            </VBox>
+        </VBox>
+    </left>
 
-    <VBox spacing="12" styleClass="card" prefWidth="400">
-        <Label text="Modifier le rendez-vous sélectionné" styleClass="card-title"/>
-        <Separator/>
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" pannable="true" styleClass="form-scroll validation-form-scroll">
+        <VBox styleClass="page-container form-page scroll-page">
+            <HBox styleClass="top-searchbar" spacing="14">
+                <TextField promptText="Search..." styleClass="top-search-field" HBox.hgrow="ALWAYS"/>
+                <Label text="M" styleClass="avatar-badge"/>
+            </HBox>
 
-        <Label text="Date" styleClass="section-label"/>
-        <DatePicker fx:id="datePicker"/>
+            <VBox spacing="2">
+                <Label text="Validation des rendez-vous" styleClass="page-title"/>
+                <Label text="Recherche, tri, filtres et traitement admin dans une interface unique." styleClass="page-subtitle"/>
+            </VBox>
 
-        <Label text="Heure" styleClass="section-label"/>
-        <TextField fx:id="heureField" promptText="HH:mm"/>
+            <HBox spacing="16" styleClass="validation-split" VBox.vgrow="ALWAYS">
+                <VBox styleClass="card compact-table-card validation-table-card" HBox.hgrow="ALWAYS">
+                    <HBox styleClass="filters-row">
+                        <TextField fx:id="searchField" promptText="Rechercher dans les rendez-vous..." HBox.hgrow="ALWAYS"/>
+                        <ComboBox fx:id="statutFilter" promptText="Statut" prefWidth="130"/>
+                        <ComboBox fx:id="typeFilter" promptText="Type" prefWidth="145"/>
+                        <ComboBox fx:id="sortCombo" promptText="Tri" prefWidth="155"/>
+                        <Button text="Rechercher" onAction="#loadData" styleClass="primary-button" prefWidth="135"/>
+                    </HBox>
 
-        <Label text="Statut" styleClass="section-label"/>
-        <TextField fx:id="statutField"/>
+                    <TableView fx:id="rendezVousTable" prefHeight="390" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colId" text="ID" prefWidth="55"/>
+                            <TableColumn fx:id="colDate" text="DATE" prefWidth="100"/>
+                            <TableColumn fx:id="colHeure" text="HEURE" prefWidth="85"/>
+                            <TableColumn fx:id="colStatut" text="STATUT" prefWidth="115"/>
+                            <TableColumn fx:id="colRemarque" text="REMARQUE" prefWidth="190"/>
+                            <TableColumn fx:id="colType" text="TYPE" prefWidth="155"/>
+                            <TableColumn fx:id="colActions" text="ACTIONS" prefWidth="170"/>
+                        </columns>
+                    </TableView>
+                </VBox>
 
-        <Label text="Remarque" styleClass="section-label"/>
-        <TextArea fx:id="remarqueArea" prefHeight="90"/>
+                <VBox spacing="5" styleClass="card form-card validation-side-form" prefWidth="390" minWidth="360" maxWidth="430">
+                    <padding>
+                        <Insets top="8" right="14" bottom="8" left="14"/>
+                    </padding>
+                    <Label text="Modifier le rendez-vous selectionne" styleClass="card-title"/>
+                    <HBox spacing="10" styleClass="form-actions compact-actions">
+                        <Button text="Enregistrer" onAction="#modifierRendezVous" styleClass="primary-button" prefWidth="120"/>
+                        <Button text="Vider" onAction="#clearFields" styleClass="secondary-button" prefWidth="85"/>
+                        <Button text="Reset filtres" onAction="#resetFilters" styleClass="ghost-button" prefWidth="105"/>
+                    </HBox>
+                    <Separator/>
 
-        <Label text="Type de rendez-vous" styleClass="section-label"/>
-        <ComboBox fx:id="comboType"/>
+                    <Label text="Planification" styleClass="form-section-title"/>
+                    <HBox spacing="10" styleClass="form-row compact-plan-row">
+                        <VBox spacing="4" styleClass="form-group compact-form-group" HBox.hgrow="ALWAYS">
+                            <Label text="Date" styleClass="section-label"/>
+                            <DatePicker fx:id="datePicker" maxWidth="Infinity"/>
+                        </VBox>
+                        <VBox spacing="4" styleClass="form-group compact-form-group">
+                            <Label text="Heure" styleClass="section-label"/>
+                            <HBox spacing="8">
+                                <Spinner fx:id="heureSpinner" prefWidth="92" minWidth="92"/>
+                                <Spinner fx:id="minuteSpinner" prefWidth="92" minWidth="92"/>
+                            </HBox>
+                        </VBox>
+                    </HBox>
 
-        <HBox spacing="10">
-            <Button text="Confirmer modification" onAction="#modifierRendezVous" prefWidth="180"/>
-            <Button text="Annuler / Nouveau" onAction="#clearFields" styleClass="secondary-button" prefWidth="170"/>
-        </HBox>
-    </VBox>
-</HBox>
+                    <VBox spacing="4" styleClass="recommendation-box validation-recommendation-box">
+                        <Label text="Aide intelligente" styleClass="section-label"/>
+                        <Label fx:id="recommandationLabel"
+                               text="Selectionnez un rendez-vous ou choisissez une date et une heure."
+                               wrapText="true"
+                               styleClass="recommendation-message"/>
+                        <Label fx:id="creneauxDisponiblesLabel"
+                               text="Creneaux autorises : 09:00 a 14:30, toutes les 30 minutes."
+                               wrapText="true"
+                               visible="false"
+                               managed="false"
+                               styleClass="section-subtitle"/>
+                    </VBox>
+
+                    <Label text="Statut et type" styleClass="form-section-title"/>
+                    <VBox spacing="4" styleClass="form-group compact-form-group">
+                        <Label text="Statut" styleClass="section-label"/>
+                        <TextField fx:id="statutField" editable="false" maxWidth="Infinity"/>
+                    </VBox>
+                    <VBox spacing="4" styleClass="form-group compact-form-group">
+                        <Label text="Type de rendez-vous" styleClass="section-label"/>
+                        <ComboBox fx:id="comboType" maxWidth="Infinity"/>
+                    </VBox>
+
+                    <VBox spacing="4" styleClass="form-group compact-form-group">
+                        <Label text="Remarque" styleClass="section-label"/>
+                        <TextArea fx:id="remarqueArea" prefHeight="54" maxWidth="Infinity"/>
+                    </VBox>
+                </VBox>
+            </HBox>
+        </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

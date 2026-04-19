@@ -1,32 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.example.wellbalance.controllers.AfficherTypeRendezVousController"
-      spacing="18"
-      styleClass="page-container">
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.wellbalance.controllers.AfficherTypeRendezVousController"
+            styleClass="app-shell">
 
-    <HBox alignment="CENTER_LEFT" spacing="15" styleClass="top-bar">
-        <Button text="⬅ Menu" styleClass="menu-button"/>
-        <Label text="WellBalance - Liste des types de rendez-vous" styleClass="page-title"/>
-    </HBox>
+    <left>
+        <VBox styleClass="sidebar">
+            <VBox styleClass="brand-block">
+                <Label text="WellBalance" styleClass="brand-title"/>
+                <Label text="Dashboard administration" styleClass="brand-subtitle"/>
+            </VBox>
+            <Label text="DASHBOARD" styleClass="sidebar-section"/>
+            <Button text="Tableau de bord" onAction="#openDashboard" styleClass="sidebar-button-outline"/>
+            <Label text="GESTION" styleClass="sidebar-section"/>
+            <Button text="Ajouter rendez-vous" onAction="#openAjouterRdv" styleClass="sidebar-button-outline"/>
+            <Button text="Liste rendez-vous" onAction="#openAfficherRdv" styleClass="sidebar-button-outline"/>
+            <Button text="Validation admin" onAction="#openModifierRdv" styleClass="sidebar-button-outline"/>
+            <Button text="Suppression rendez-vous" onAction="#openSupprimerRdv" styleClass="sidebar-button-outline"/>
+            <Button text="Ajouter type" onAction="#openAjouterType" styleClass="sidebar-button-outline"/>
+            <Button text="Liste des types" onAction="#openAfficherType" styleClass="sidebar-button"/>
+            <Button text="Modifier type" onAction="#openModifierType" styleClass="sidebar-button-outline"/>
+            <Button text="Supprimer type" onAction="#openSupprimerType" styleClass="sidebar-button-outline"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <VBox styleClass="sidebar-note">
+                <Label text="Recherche combinee" styleClass="sidebar-note-title"/>
+                <Label text="La recherche parcourt le libelle, la description, la categorie, la duree et le prix."
+                       wrapText="true"
+                       styleClass="sidebar-note-text"/>
+            </VBox>
+        </VBox>
+    </left>
 
-    <VBox spacing="14" styleClass="card" VBox.vgrow="ALWAYS">
-        <HBox alignment="CENTER_RIGHT">
-            <Button text="Actualiser" onAction="#loadData" styleClass="warning-button"/>
-        </HBox>
+    <center>
+        <VBox styleClass="page-container">
+            <HBox styleClass="topbar" spacing="16">
+                <VBox spacing="4">
+                    <Label text="Liste des types de rendez-vous" styleClass="page-title"/>
+                    <Label text="Recherche multi-attributs, filtre par categorie et tri combinables." styleClass="page-subtitle"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="Actualiser" onAction="#loadData" styleClass="secondary-button"/>
+            </HBox>
 
-        <TableView fx:id="typeTable" VBox.vgrow="ALWAYS">
-            <columns>
-                <TableColumn fx:id="colId" text="ID" prefWidth="70"/>
-                <TableColumn fx:id="colLibelle" text="Libellé" prefWidth="180"/>
-                <TableColumn fx:id="colDescription" text="Description" prefWidth="280"/>
-                <TableColumn fx:id="colDuree" text="Durée" prefWidth="100"/>
-                <TableColumn fx:id="colPrix" text="Prix" prefWidth="110"/>
-                <TableColumn fx:id="colCategorie" text="Catégorie" prefWidth="180"/>
-            </columns>
-        </TableView>
-    </VBox>
-</VBox>
+            <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                <HBox styleClass="filters-row">
+                    <TextField fx:id="searchField" promptText="Rechercher libelle, description, categorie, prix ou duree..." HBox.hgrow="ALWAYS"/>
+                    <ComboBox fx:id="categorieFilter" promptText="Categorie" prefWidth="180"/>
+                    <ComboBox fx:id="sortCombo" promptText="Tri" prefWidth="180"/>
+                    <Button text="Reinitialiser" onAction="#resetFilters" styleClass="ghost-button"/>
+                </HBox>
+
+                <TableView fx:id="typeTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="80"/>
+                        <TableColumn fx:id="colLibelle" text="Libelle" prefWidth="200"/>
+                        <TableColumn fx:id="colDescription" text="Description" prefWidth="360"/>
+                        <TableColumn fx:id="colDuree" text="Duree" prefWidth="110"/>
+                        <TableColumn fx:id="colPrix" text="Prix" prefWidth="110"/>
+                        <TableColumn fx:id="colCategorie" text="Categorie" prefWidth="180"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

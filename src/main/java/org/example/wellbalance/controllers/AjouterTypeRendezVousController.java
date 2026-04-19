@@ -1,20 +1,14 @@
 package org.example.wellbalance.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import org.example.wellbalance.models.TypeRendezVous;
 import org.example.wellbalance.services.TypeRendezVousService;
 
-import java.awt.event.ActionEvent;
-import java.io.IOException;
-import java.net.URL;
-
-public class AjouterTypeRendezVousController {
+public class AjouterTypeRendezVousController extends BaseAdminController {
 
     @FXML
     private TextField libelleField;
@@ -97,20 +91,5 @@ public class AjouterTypeRendezVousController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-    @FXML
-    public void retourMenu(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/menu.fxml"));
-        Scene scene = new Scene(loader.load(), 700, 400);
-
-        URL cssUrl = getClass().getResource("/css/modern-style.css");
-        if (cssUrl != null) {
-            scene.getStylesheets().add(cssUrl.toExternalForm());
-        }
-
-        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.setTitle("WellBalance - Menu");
-        stage.show();
     }
 }

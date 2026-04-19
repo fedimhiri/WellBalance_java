@@ -3,6 +3,7 @@ module org.example.wellbalance {
     requires javafx.fxml;
     requires java.sql;
     requires java.desktop;
+    requires jakarta.mail;
 
     opens org.example.wellbalance to javafx.fxml;
     opens org.example.wellbalance.controllers to javafx.fxml;

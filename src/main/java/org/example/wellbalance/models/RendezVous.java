@@ -5,10 +5,14 @@ import java.time.LocalTime;
 
 public class RendezVous {
 
+    public static final String STATUT_EN_COURS = "en cours";
+    public static final String STATUT_ACCEPTE = "accepté";
+    public static final String STATUT_REFUSE = "refusé";
+
     private int id;
     private LocalDate dateRdv;
     private LocalTime heureRdv;
-    private String statut;
+    private String statut = STATUT_EN_COURS;
     private String remarque;
 
     // 🔥 RELATION
@@ -38,7 +42,9 @@ public class RendezVous {
     public void setHeureRdv(LocalTime heureRdv) { this.heureRdv = heureRdv; }
 
     public String getStatut() { return statut; }
-    public void setStatut(String statut) { this.statut = statut; }
+    public void setStatut(String statut) {
+        this.statut = (statut == null || statut.isBlank()) ? STATUT_EN_COURS : statut;
+    }
 
     public String getRemarque() { return remarque; }
     public void setRemarque(String remarque) { this.remarque = remarque; }

@@ -1,44 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.example.wellbalance.controllers.AjouterRendezVousController"
-      spacing="18"
-      styleClass="page-container">
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.wellbalance.controllers.AjouterRendezVousController"
+            styleClass="app-shell">
 
-    <HBox alignment="CENTER_LEFT" spacing="15" styleClass="top-bar">
-        <Button text="⬅ Menu" styleClass="menu-button"/>
-        <Label text="WellBalance - Ajouter un rendez-vous" styleClass="page-title"/>
-    </HBox>
+    <left>
+        <VBox styleClass="sidebar">
+            <VBox styleClass="brand-block">
+                <Label text="symfony admin" styleClass="brand-title"/>
+                <Label text="Interface rendez-vous" styleClass="brand-subtitle"/>
+            </VBox>
 
-    <HBox spacing="20" VBox.vgrow="ALWAYS">
+            <Label text="DASHBOARD" styleClass="sidebar-section"/>
+            <Button text="Tableau de bord" onAction="#openDashboard" styleClass="sidebar-button-outline"/>
 
-        <VBox spacing="14" styleClass="card" HBox.hgrow="ALWAYS">
-            <Label text="Créer un nouveau rendez-vous" styleClass="card-title"/>
-            <Separator/>
+            <Label text="GESTION" styleClass="sidebar-section"/>
+            <Button text="Ajouter rendez-vous" onAction="#openAjouterRdv" styleClass="sidebar-button"/>
+            <Button text="Liste rendez-vous" onAction="#openAfficherRdv" styleClass="sidebar-button-outline"/>
+            <Button text="Validation admin" onAction="#openModifierRdv" styleClass="sidebar-button-outline"/>
+            <Button text="Suppression rendez-vous" onAction="#openSupprimerRdv" styleClass="sidebar-button-outline"/>
+            <Button text="Ajouter type" onAction="#openAjouterType" styleClass="sidebar-button-outline"/>
+            <Button text="Liste des types" onAction="#openAfficherType" styleClass="sidebar-button-outline"/>
+            <Button text="Modifier type" onAction="#openModifierType" styleClass="sidebar-button-outline"/>
+            <Button text="Supprimer type" onAction="#openSupprimerType" styleClass="sidebar-button-outline"/>
 
-            <Label text="Date" styleClass="section-label"/>
-            <DatePicker fx:id="datePicker"/>
-
-            <Label text="Heure" styleClass="section-label"/>
-            <TextField fx:id="heureField" promptText="HH:mm"/>
-
-            <Label text="Statut" styleClass="section-label"/>
-            <TextField fx:id="statutField" promptText="Statut"/>
-
-            <Label text="Remarque" styleClass="section-label"/>
-            <TextArea fx:id="remarqueArea" promptText="Remarque" prefHeight="100"/>
-
-            <Label text="Type de rendez-vous" styleClass="section-label"/>
-            <ComboBox fx:id="comboType" promptText="Choisir un type"/>
-
-            <HBox spacing="12">
-                <Button text="Ajouter" onAction="#ajouterRendezVous" styleClass="success-button" prefWidth="160"/>
-                <Button text="Annuler / Nouveau" onAction="#clearFields" styleClass="secondary-button" prefWidth="180"/>
-            </HBox>
+            <Region VBox.vgrow="ALWAYS"/>
+            <VBox styleClass="sidebar-note">
+                <Label text="Formulaire modernise" styleClass="sidebar-note-title"/>
+                <Label text="Le formulaire garde le meme affichage, avec les boutons visibles en bas."
+                       wrapText="true"
+                       styleClass="sidebar-note-text"/>
+            </VBox>
         </VBox>
+    </left>
 
-    </HBox>
-</VBox>
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" pannable="true" styleClass="form-scroll">
+        <VBox styleClass="page-container form-page scroll-page">
+            <HBox styleClass="top-searchbar" spacing="14">
+                <TextField promptText="Search..." styleClass="top-search-field" HBox.hgrow="ALWAYS"/>
+                <Label text="M" styleClass="avatar-badge"/>
+            </HBox>
+
+            <VBox spacing="2">
+                <Label text="Ajouter un rendez-vous" styleClass="page-title"/>
+                <Label text="Formulaire de creation avec date et heure mieux typees." styleClass="page-subtitle"/>
+            </VBox>
+
+            <VBox spacing="14" styleClass="card form-card spacious-form-card" maxWidth="Infinity">
+                <padding>
+                    <Insets top="18" right="24" bottom="18" left="24"/>
+                </padding>
+                <Label text="Informations du rendez-vous" styleClass="card-title"/>
+                <Separator/>
+
+                <HBox spacing="24" styleClass="form-row spacious-form-row" maxWidth="Infinity">
+                    <VBox spacing="12" styleClass="form-column" HBox.hgrow="ALWAYS">
+                        <Label text="Planification" styleClass="form-section-title"/>
+                        <VBox spacing="8" styleClass="form-group spacious-form-group">
+                            <Label text="Date" styleClass="section-label"/>
+                            <DatePicker fx:id="datePicker" maxWidth="Infinity"/>
+                        </VBox>
+
+                        <VBox spacing="8" styleClass="form-group spacious-form-group">
+                            <Label text="Heure" styleClass="section-label"/>
+                            <HBox spacing="12">
+                                <Spinner fx:id="heureSpinner" prefWidth="105"/>
+                                <Spinner fx:id="minuteSpinner" prefWidth="105"/>
+                            </HBox>
+                        </VBox>
+
+                        <VBox spacing="8" styleClass="recommendation-box">
+                            <Label text="Recommandation intelligente" styleClass="section-label"/>
+                            <Label fx:id="recommandationLabel"
+                                   text="Choisissez une date et une heure pour obtenir une recommandation."
+                                   wrapText="true"
+                                   styleClass="recommendation-message"/>
+                            <Label fx:id="creneauxDisponiblesLabel"
+                                   text="Creneaux autorises : 09:00 a 14:30, toutes les 30 minutes."
+                                   wrapText="true"
+                                   styleClass="section-subtitle"/>
+                        </VBox>
+                    </VBox>
+
+                    <VBox spacing="12" styleClass="form-column" HBox.hgrow="ALWAYS">
+                        <Label text="Details du rendez-vous" styleClass="form-section-title"/>
+                        <VBox spacing="8" styleClass="form-group spacious-form-group">
+                            <Label text="Statut" styleClass="section-label"/>
+                            <Label text="en cours (attribue automatiquement)" styleClass="section-subtitle"/>
+                        </VBox>
+
+                        <VBox spacing="8" styleClass="form-group spacious-form-group">
+                            <Label text="Type de rendez-vous" styleClass="section-label"/>
+                            <ComboBox fx:id="comboType" promptText="Choisir un type" maxWidth="Infinity"/>
+                        </VBox>
+
+                        <VBox spacing="8" styleClass="form-group spacious-form-group">
+                            <Label text="Remarque" styleClass="section-label"/>
+                            <TextArea fx:id="remarqueArea" promptText="Remarque" prefHeight="95" maxWidth="Infinity"/>
+                        </VBox>
+
+                        <Label text="Actions" styleClass="form-section-title"/>
+                        <HBox spacing="16" styleClass="form-actions spacious-actions">
+                            <Button text="Enregistrer" onAction="#ajouterRendezVous" styleClass="primary-button" prefWidth="170"/>
+                            <Button text="Reinitialiser" onAction="#clearFields" styleClass="secondary-button" prefWidth="170"/>
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
