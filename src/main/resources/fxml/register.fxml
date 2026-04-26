@@ -21,7 +21,7 @@
                     <Insets top="0" right="70" bottom="0" left="70"/>
                 </padding>
                 <Label text="✉ contact@clinique.com" styleClass="top-contact-label"/>
-                <Label text="📱 +1 5589 55488 55"    styleClass="top-contact-label"/>
+                <Label text="📱 +1 5589 55488 55" styleClass="top-contact-label"/>
             </HBox>
 
             <HBox alignment="CENTER_LEFT"
@@ -33,9 +33,9 @@
                 <Label text="Clinique Médicale" styleClass="brand-title"/>
                 <Region HBox.hgrow="ALWAYS"/>
                 <HBox alignment="CENTER_RIGHT" spacing="18">
-                    <Button text="Accueil"      styleClass="nav-link"/>
+                    <Button text="Accueil" styleClass="nav-link"/>
                     <Button text="Se connecter" styleClass="nav-outline-button" onAction="#goToLogin"/>
-                    <Button text="S'inscrire"   styleClass="nav-primary-button"/>
+                    <Button text="S'inscrire" styleClass="nav-primary-button"/>
                 </HBox>
             </HBox>
         </VBox>
@@ -50,7 +50,7 @@
                             <Insets top="35" right="40" bottom="35" left="40"/>
                         </padding>
 
-                        <Label text="Créer un compte"  styleClass="login-title"/>
+                        <Label text="Créer un compte" styleClass="login-title"/>
                         <Label text="Inscrivez-vous pour accéder à votre espace patient."
                                styleClass="login-subtitle"/>
 
@@ -69,8 +69,7 @@
                             <TextField fx:id="usernameField"
                                        promptText="Nom d'utilisateur"
                                        styleClass="input-field"
-                                       prefHeight="46"
-                                       style="-fx-margin-top: 10;"/>
+                                       prefHeight="46"/>
                             <Label fx:id="usernameError"
                                    styleClass="error-label"
                                    visible="false" managed="false"/>
@@ -85,13 +84,34 @@
                                    visible="false" managed="false"/>
 
                             <!-- Mot de passe -->
-                            <PasswordField fx:id="passwordField"
-                                           promptText="Mot de passe"
-                                           styleClass="input-field"
-                                           prefHeight="46"/>
-                            <Label fx:id="passwordError"
-                                   styleClass="error-label"
-                                   visible="false" managed="false"/>
+                            <VBox spacing="6" style="-fx-padding: 4 0 0 0;">
+                                <PasswordField fx:id="passwordField"
+                                               promptText="Mot de passe"
+                                               styleClass="input-field"
+                                               prefHeight="46"/>
+
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <Label text="Sécurité"
+                                           style="-fx-text-fill: #64748b; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+
+                                    <ProgressBar fx:id="passwordStrengthBar"
+                                                 progress="0.0"
+                                                 prefWidth="420"
+                                                 prefHeight="10"
+                                                 styleClass="password-strength-bar strength-empty"/>
+
+                                    <Label fx:id="passwordStrengthLabel"
+                                           text="Vide"
+                                           styleClass="password-strength-text"/>
+                                </HBox>
+
+                                <Label text="Utilisez au moins 8 caractères, avec majuscule, chiffre et caractère spécial."
+                                       styleClass="password-hint"/>
+
+                                <Label fx:id="passwordError"
+                                       styleClass="error-label"
+                                       visible="false" managed="false"/>
+                            </VBox>
 
                             <!-- Confirmation -->
                             <PasswordField fx:id="confirmPasswordField"
@@ -113,7 +133,6 @@
 
                         </VBox>
 
-                        <!-- Bouton inscription -->
                         <Button text="Créer mon compte"
                                 onAction="#handleRegister"
                                 styleClass="primary-button"
@@ -121,7 +140,6 @@
                                 prefHeight="46"
                                 style="-fx-margin-top: 10;"/>
 
-                        <!-- Lien login -->
                         <HBox alignment="CENTER" spacing="6" style="-fx-padding: 10 0 0 0;">
                             <Label text="Déjà un compte ?" styleClass="bottom-text"/>
                             <Button text="Se connecter"

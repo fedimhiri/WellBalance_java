@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>reCAPTCHA</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100px;
+            background: transparent;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        .recaptcha-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
+            border: 1px solid #c9d6f0;
+            box-shadow: 0 2px 8px rgba(22, 59, 122, 0.08);
+        }
+    </style>
+    <script>
+        function onCaptchaSuccess(token) {
+            if (window.javaConnector) {
+                window.javaConnector.setToken(token);
+            }
+        }
+
+        function onCaptchaExpired() {
+            if (window.javaConnector) {
+                window.javaConnector.resetToken();
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="recaptcha-wrapper">
+    <div class="g-recaptcha"
+         data-sitekey="6Lf31sQsAAAAANoijuuhRxKIeyn3dWuLHJGSYEQ7"
+         data-callback="onCaptchaSuccess"
+         data-expired-callback="onCaptchaExpired"
+         data-theme="light">
+    </div>
+</div>
+</body>
+</html>

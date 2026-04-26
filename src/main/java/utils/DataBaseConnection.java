@@ -12,7 +12,7 @@ public class DataBaseConnection {
     private static final String USER = "root";       // <-- change if needed
     private static final String PASSWORD = "";   // <-- change if needed
 
-    // Singleton connection
+
     private static Connection connection = null;
 
     // === Method to get the connection ===

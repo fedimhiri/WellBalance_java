@@ -180,4 +180,18 @@ public class UserService implements IService<User> {
         ps.setInt(2, id);
         ps.executeUpdate();
     }
+
+    public void ajouterUtilisateurGoogle(User user) throws SQLException {
+        String sql = "INSERT INTO `user` (email, roles, password, username, telephone, is_banned) VALUES (?, ?, ?, ?, ?, ?)";
+        PreparedStatement ps = cnx.prepareStatement(sql);
+
+        ps.setString(1, user.getEmail());
+        ps.setString(2, "[\"ROLE_USER\"]");
+        ps.setString(3, "GOOGLE_AUTH");
+        ps.setString(4, user.getUsername());
+        ps.setString(5, user.getTelephone());
+        ps.setInt(6, 0);
+
+        ps.executeUpdate();
+    }
 }

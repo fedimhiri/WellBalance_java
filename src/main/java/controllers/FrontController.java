@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import service.UserSessionService;
 import utils.Session;
-
+import service.GoogleAuthService;
 public class FrontController {
 
     @FXML
@@ -33,11 +33,12 @@ public class FrontController {
     @FXML
     public void logout(ActionEvent event) {
         try {
-            UserSessionService userSessionService = new UserSessionService();
-
             if (Session.getCurrentSessionToken() != null) {
                 userSessionService.closeSession(Session.getCurrentSessionToken());
             }
+
+            GoogleAuthService googleAuthService = new GoogleAuthService();
+            googleAuthService.clearSavedGoogleSession();
 
             Session.clear();
             loadPage("/fxml/login.fxml", event, "Connexion");

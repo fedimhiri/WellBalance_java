@@ -5,12 +5,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.AdminDashboardController"
-            prefWidth="1400.0" prefHeight="850.0"
+            prefWidth="1400.0" prefHeight="920.0"
             styleClass="admin-root">
 
-    <!-- ===== SIDEBAR ===== -->
     <left>
         <VBox prefWidth="260" spacing="20" styleClass="sidebar">
             <padding>
@@ -19,91 +22,218 @@
 
             <Label text="symfony admin" styleClass="sidebar-logo"/>
 
-            <!-- Navigation principale -->
             <VBox spacing="10">
-                <Button text="Dashboard"    styleClass="sidebar-button-active" maxWidth="Infinity"/>
-                <Button text="Front Office" styleClass="sidebar-button" maxWidth="Infinity"
+                <Button text="🏠 Dashboard" styleClass="sidebar-button-active" maxWidth="Infinity"/>
+                <Button text="🌐 Front Office" styleClass="sidebar-button" maxWidth="Infinity"
                         onAction="#goToFrontOffice"/>
-                <Button text="Mon profil"   styleClass="sidebar-button" maxWidth="Infinity"
+                <Button text="👤 Mon profil" styleClass="sidebar-button" maxWidth="Infinity"
                         onAction="#goToMyProfile"/>
-                <Button text="Sessions"
-                        styleClass="sidebar-button"
-                        maxWidth="Infinity"
+                <Button text="🕒 Sessions" styleClass="sidebar-button" maxWidth="Infinity"
                         onAction="#goToSessions"/>
             </VBox>
 
             <Label text="GESTION" styleClass="sidebar-section-title"/>
 
-            <!-- Navigation gestion -->
             <VBox spacing="10">
-                <Button text="Utilisateurs" styleClass="sidebar-button" maxWidth="Infinity"/>
-                <Button text="Projets"      styleClass="sidebar-button" maxWidth="Infinity"/>
-                <Button text="Commandes"    styleClass="sidebar-button" maxWidth="Infinity"/>
-                <Button text="Statistiques" styleClass="sidebar-button" maxWidth="Infinity"/>
-                <Button text="Messages"     styleClass="sidebar-button" maxWidth="Infinity"/>
+                <Button text="👥 Utilisateurs" styleClass="sidebar-button" maxWidth="Infinity"/>
+                <Button text="📂 Projets" styleClass="sidebar-button" maxWidth="Infinity"/>
+                <Button text="📦 Commandes" styleClass="sidebar-button" maxWidth="Infinity"/>
+                <Button text="📊 Statistiques" styleClass="sidebar-button" maxWidth="Infinity"/>
+                <Button text="💬 Messages" styleClass="sidebar-button" maxWidth="Infinity"/>
             </VBox>
 
-            <!-- Bouton logout poussé en bas -->
             <Region VBox.vgrow="ALWAYS"/>
-            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button fx:id="themeToggleButton"
+                    text="🌙 Mode Sombre"
+                    styleClass="sidebar-button"
+                    maxWidth="Infinity"
+                    onAction="#toggleTheme"/>
 
             <Button text="Se déconnecter"
                     styleClass="logout-button"
                     maxWidth="Infinity"
                     onAction="#logout"/>
-
         </VBox>
     </left>
 
-    <!-- ===== CONTENU PRINCIPAL ===== -->
     <center>
-        <VBox spacing="20" styleClass="admin-content">
-            <padding>
-                <Insets top="25" right="25" bottom="25" left="25"/>
-            </padding>
+        <ScrollPane fitToWidth="true"
+                    fitToHeight="true"
+                    hbarPolicy="NEVER"
+                    style="-fx-background-color: transparent;">
+            <content>
+                <VBox spacing="20" styleClass="admin-content">
+                    <padding>
+                        <Insets top="25" right="25" bottom="25" left="25"/>
+                    </padding>
 
-            <!-- Barre de recherche et filtres -->
-            <HBox spacing="12" alignment="CENTER_LEFT">
-                <TextField promptText="Rechercher par email, username ou téléphone"
-                           styleClass="search-field"
-                           prefWidth="520"/>
+                    <HBox spacing="12" alignment="CENTER_LEFT">
+                        <TextField fx:id="searchField"
+                                   promptText="🔍 Rechercher par email, username ou téléphone"
+                                   styleClass="search-field"
+                                   prefWidth="480"
+                                   onKeyReleased="#onSearch"/>
 
-                <ComboBox prefWidth="200" styleClass="filter-combo">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Tous"/>
-                            <String fx:value="ROLE_ADMIN"/>
-                            <String fx:value="ROLE_USER"/>
-                            <String fx:value="ROLE_PATIENT"/>
-                            <String fx:value="ROLE_MEDECIN"/>
-                            <String fx:value="ROLE_COACHSPORTIF"/>
-                        </FXCollections>
-                    </items>
-                </ComboBox>
+                        <ComboBox fx:id="roleFilter"
+                                  promptText="Filtrer par rôle"
+                                  prefWidth="200"
+                                  styleClass="filter-combo"
+                                  onAction="#onFilter">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Tous"/>
+                                    <String fx:value="ROLE_ADMIN"/>
+                                    <String fx:value="ROLE_USER"/>
+                                    <String fx:value="ROLE_PATIENT"/>
+                                    <String fx:value="ROLE_MEDECIN"/>
+                                    <String fx:value="ROLE_COACHSPORTIF"/>
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
 
-                <Button text="Réinitialiser" styleClass="reset-button"/>
-            </HBox>
+                        <ComboBox fx:id="statutFilter"
+                                  promptText="Filtrer par statut"
+                                  prefWidth="180"
+                                  styleClass="filter-combo"
+                                  onAction="#onFilter">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Tous"/>
+                                    <String fx:value="ACTIF"/>
+                                    <String fx:value="BANNI"/>
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
 
-            <!-- Tableau -->
-            <VBox styleClass="content-card" spacing="15" VBox.vgrow="ALWAYS">
-                <Label text="Bienvenue dans l'espace Admin" styleClass="dashboard-title"/>
+                        <Button text="Réinitialiser"
+                                styleClass="reset-button"
+                                onAction="#onReset"/>
+                    </HBox>
 
-                <TableView fx:id="tableUsers" VBox.vgrow="ALWAYS">
-                    <columns>
-                        <TableColumn fx:id="colId"        text="#"         prefWidth="60"/>
-                        <TableColumn fx:id="colEmail"     text="EMAIL"     prefWidth="250"/>
-                        <TableColumn fx:id="colUsername"  text="USERNAME"  prefWidth="200"/>
-                        <TableColumn fx:id="colTelephone" text="TÉLÉPHONE" prefWidth="140"/>
-                        <TableColumn fx:id="colRoles"     text="RÔLE(S)"   prefWidth="220"/>
-                        <TableColumn fx:id="colStatut"    text="STATUT"    prefWidth="100"/>
-                        <TableColumn fx:id="colActions"   text="ACTIONS"   prefWidth="250"/>
-                    </columns>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                    </columnResizePolicy>
-                </TableView>
-            </VBox>
-        </VBox>
+                    <VBox styleClass="content-card" spacing="15" VBox.vgrow="ALWAYS">
+                        <Label text="Bienvenue dans l'espace Admin"
+                               styleClass="dashboard-title"/>
+
+                        <TableView fx:id="tableUsers" prefHeight="400.0">
+                            <columns>
+                                <TableColumn fx:id="colId" text="#" prefWidth="60"/>
+                                <TableColumn fx:id="colEmail" text="EMAIL" prefWidth="250"/>
+                                <TableColumn fx:id="colUsername" text="USERNAME" prefWidth="200"/>
+                                <TableColumn fx:id="colTelephone" text="TÉLÉPHONE" prefWidth="140"/>
+                                <TableColumn fx:id="colRoles" text="RÔLE(S)" prefWidth="220"/>
+                                <TableColumn fx:id="colStatut" text="STATUT" prefWidth="100"/>
+                                <TableColumn fx:id="colActions" text="ACTIONS" prefWidth="250"/>
+                            </columns>
+
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                            </columnResizePolicy>
+                        </TableView>
+                    </VBox>
+
+                    <!-- Statistiques -->
+                    <VBox spacing="12">
+                        <Label text="Statistiques"
+                               styleClass="dashboard-title"/>
+
+                        <HBox spacing="15">
+                            <children>
+
+                                <VBox prefWidth="220" spacing="8"
+                                      style="-fx-background-color: white;
+                                             -fx-background-radius: 14;
+                                             -fx-border-color: #e5e7eb;
+                                             -fx-border-radius: 14;
+                                             -fx-padding: 18;">
+                                    <children>
+                                        <Label text="Total utilisateurs"
+                                               style="-fx-font-size: 14px; -fx-text-fill: #6b7280;"/>
+                                        <Label fx:id="totalUsersLabel"
+                                               text="0"
+                                               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #111827;"/>
+                                    </children>
+                                </VBox>
+
+                                <VBox prefWidth="220" spacing="8"
+                                      style="-fx-background-color: white;
+                                             -fx-background-radius: 14;
+                                             -fx-border-color: #e5e7eb;
+                                             -fx-border-radius: 14;
+                                             -fx-padding: 18;">
+                                    <children>
+                                        <Label text="Utilisateurs actifs"
+                                               style="-fx-font-size: 14px; -fx-text-fill: #6b7280;"/>
+                                        <Label fx:id="activeUsersLabel"
+                                               text="0"
+                                               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #16a34a;"/>
+                                    </children>
+                                </VBox>
+
+                                <VBox prefWidth="220" spacing="8"
+                                      style="-fx-background-color: white;
+                                             -fx-background-radius: 14;
+                                             -fx-border-color: #e5e7eb;
+                                             -fx-border-radius: 14;
+                                             -fx-padding: 18;">
+                                    <children>
+                                        <Label text="Utilisateurs bannis"
+                                               style="-fx-font-size: 14px; -fx-text-fill: #6b7280;"/>
+                                        <Label fx:id="bannedUsersLabel"
+                                               text="0"
+                                               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #dc2626;"/>
+                                    </children>
+                                </VBox>
+
+                                <VBox prefWidth="220" spacing="8"
+                                      style="-fx-background-color: white;
+                                             -fx-background-radius: 14;
+                                             -fx-border-color: #e5e7eb;
+                                             -fx-border-radius: 14;
+                                             -fx-padding: 18;">
+                                    <children>
+                                        <Label text="Administrateurs"
+                                               style="-fx-font-size: 14px; -fx-text-fill: #6b7280;"/>
+                                        <Label fx:id="adminUsersLabel"
+                                               text="0"
+                                               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2563eb;"/>
+                                    </children>
+                                </VBox>
+
+                            </children>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Diagramme -->
+                    <VBox spacing="12">
+                        <Label text="Diagramme des utilisateurs"
+                               styleClass="dashboard-title"/>
+
+                        <VBox style="-fx-background-color: white;
+                                     -fx-background-radius: 16;
+                                     -fx-border-color: #e5e7eb;
+                                     -fx-border-radius: 16;
+                                     -fx-padding: 20;">
+                            <children>
+                                <BarChart fx:id="usersBarChart"
+                                          prefHeight="320"
+                                          legendVisible="false"
+                                          animated="false"
+                                          categoryGap="30">
+                                    <xAxis>
+                                        <CategoryAxis label="Catégories"/>
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Nombre d'utilisateurs"/>
+                                    </yAxis>
+                                </BarChart>
+                            </children>
+                        </VBox>
+                    </VBox>
+
+                </VBox>
+            </content>
+        </ScrollPane>
     </center>
 
 </BorderPane>

@@ -16,7 +16,7 @@ public class Session {
     private static String currentSessionToken;
     private static PauseTransition inactivityTimer;
 
-    private static final int TIMEOUT_SECONDS = 1000000;
+    private static final int TIMEOUT_SECONDS = 1000000000;
 
     public static User getCurrentUser() {
         return currentUser;

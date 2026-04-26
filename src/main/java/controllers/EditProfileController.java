@@ -22,7 +22,6 @@ public class EditProfileController {
     @FXML private PasswordField confirmPasswordField;
     @FXML private Label messageLabel;
 
-    // Labels d'erreur inline
     @FXML private Label emailError;
     @FXML private Label usernameError;
     @FXML private Label telephoneError;
@@ -42,12 +41,16 @@ public class EditProfileController {
             telephoneField.setText(user.getTelephone());
         }
 
-        // Effacer erreur dès que l'utilisateur retape
-        emailField.textProperty().addListener((o, oldVal, newVal)           -> clearError(emailField, emailError));
-        usernameField.textProperty().addListener((o, oldVal, newVal)        -> clearError(usernameField, usernameError));
-        telephoneField.textProperty().addListener((o, oldVal, newVal)       -> clearError(telephoneField, telephoneError));
-        passwordField.textProperty().addListener((o, oldVal, newVal)        -> clearError(passwordField, passwordError));
-        confirmPasswordField.textProperty().addListener((o, oldVal, newVal) -> clearError(confirmPasswordField, confirmPasswordError));
+        emailField.textProperty().addListener((o, oldVal, newVal) ->
+                clearError(emailField, emailError));
+        usernameField.textProperty().addListener((o, oldVal, newVal) ->
+                clearError(usernameField, usernameError));
+        telephoneField.textProperty().addListener((o, oldVal, newVal) ->
+                clearError(telephoneField, telephoneError));
+        passwordField.textProperty().addListener((o, oldVal, newVal) ->
+                clearError(passwordField, passwordError));
+        confirmPasswordField.textProperty().addListener((o, oldVal, newVal) ->
+                clearError(confirmPasswordField, confirmPasswordError));
     }
 
     public void setUser(User user) {
@@ -64,15 +67,14 @@ public class EditProfileController {
 
     @FXML
     public void handleSave() {
-        String email     = emailField.getText().trim();
-        String username  = usernameField.getText().trim();
+        String email = emailField.getText().trim();
+        String username = usernameField.getText().trim();
         String telephone = telephoneField.getText().trim();
-        String password  = passwordField.getText();
-        String confirm   = confirmPasswordField.getText();
+        String password = passwordField.getText();
+        String confirm = confirmPasswordField.getText();
 
         boolean valid = true;
 
-        // Email
         if (email.isEmpty()) {
             showFieldError(emailField, emailError, "L'email est obligatoire.");
             valid = false;
@@ -81,7 +83,6 @@ public class EditProfileController {
             valid = false;
         }
 
-        // Username
         if (username.isEmpty()) {
             showFieldError(usernameField, usernameError, "Le nom d'utilisateur est obligatoire.");
             valid = false;
@@ -90,7 +91,6 @@ public class EditProfileController {
             valid = false;
         }
 
-        // Téléphone
         if (telephone.isEmpty()) {
             showFieldError(telephoneField, telephoneError, "Le téléphone est obligatoire.");
             valid = false;
@@ -99,7 +99,6 @@ public class EditProfileController {
             valid = false;
         }
 
-        // Mot de passe (optionnel mais validé si rempli)
         if (!password.isEmpty()) {
             if (password.length() < 6) {
                 showFieldError(passwordField, passwordError, "Minimum 6 caractères.");
@@ -124,11 +123,11 @@ public class EditProfileController {
             userService.modifier(user);
             Session.setCurrentUser(user);
 
-            showSuccess("Profil mis à jour avec succès !");
-
             if (onUpdateSuccess != null) {
                 onUpdateSuccess.run();
             }
+
+            goToAdminDashboard();
 
         } catch (SQLException e) {
             showError("Erreur lors de la mise à jour : " + e.getMessage());
@@ -155,8 +154,6 @@ public class EditProfileController {
         Session.clear();
         navigateTo("/fxml/login.fxml", "Connexion");
     }
-
-    // ===== Helpers =====
 
     private void showFieldError(Control field, Label errorLabel, String message) {
         if (field != null) {
